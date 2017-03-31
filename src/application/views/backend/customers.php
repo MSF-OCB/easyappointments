@@ -100,32 +100,115 @@
                         <label for="last-name"><?php echo $this->lang->line('last_name'); ?> *</label>
                         <input type="text" id="last-name" class="form-control required" />
                     </div>
-
+                    
                     <div class="form-group">
-                        <label for="email"><?php echo $this->lang->line('email'); ?> *</label>
-                        <input type="text" id="email" class="form-control required" />
+                        <label for="gender"><?php echo $this->lang->line('gender'); ?> *</label>
+                            <select id="gender" class="required form-control">
+                                      <option value="M"><?php echo $this->lang->line('male'); ?></option>
+                                      <option value="F"><?php echo $this->lang->line('female'); ?></option>
+                                      <option value="O"><?php echo $this->lang->line('other'); ?></option>
+                            </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="phone-number"><?php echo $this->lang->line('phone_number'); ?> *</label>
-                        <input type="text" id="phone-number" class="form-control required" />
+                        <label for="email"><?php echo $this->lang->line('email'); ?></label>
+                        <input type="text" id="email" class="form-control" />
                     </div>
 
                     <div class="form-group">
-                        <label for="address"><?php echo $this->lang->line('address'); ?></label>
-                        <input type="text" id="address" class="form-control" />
+                        <label for="phone-number-1"><?php echo $this->lang->line('phone_number_1'); ?> *</label>
+                        <input type="text" id="phone-number-1" class="form-control required" />
                     </div>
 
                     <div class="form-group">
-                        <label for="city"><?php echo $this->lang->line('city'); ?></label>
-                        <input type="text" id="city" class="form-control" />
+                        <label for="phone-number-2"><?php echo $this->lang->line('phone_number_2'); ?></label>
+                        <input type="text" id="phone-number-2" class="form-control" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address"><?php echo $this->lang->line('address'); ?> *</label>
+                        <input type="text" id="address" class="form-control required" />
                     </div>
 
                     <div class="form-group">
-                        <label for="zip-code"><?php echo $this->lang->line('zip_code'); ?></label>
-                        <input type="text" id="zip-code" class="form-control" />
+                        <label for="country"><?php echo $this->lang->line('country_origin'); ?> *</label>
+                            <select id="country" class="required form-control">
+                                        <option value="AF">Afghanistan</option>
+                                        <option value="DZ">Algeria</option>
+                                        <option value="BD">Bangladesh</option>
+                                        <option value="BF">Burkina Faso</option>
+                                        <option value="CM">Cameroon</option>
+                                        <option value="CF">Central African Republic</option>
+                                        <option value="TD">Chad</option>
+                                        <option value="CG">Congo</option>
+                                        <option value="CD">Democratic Republic of Congo</option>
+                                        <option value="DO">Dominican Republic</option>
+                                        <option value="EG">Egypt</option>
+                                        <option value="ER">Eritrea</option>
+                                        <option value="ET">Ethiopia</option>
+                                        <option value="GM">Gambia</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="GW">Guinea Bissau</option>
+                                        <option value="GN">Guinea Conakry</option>
+                                        <option value="IN">India</option>
+                                        <option value="IQ">Iraq</option>
+                                        <option value="IR">Iran</option>
+                                        <option value="IV">Ivory coast</option>
+                                        <option value="LB">Lebanon</option>
+                                        <option value="LY">Libya</option>
+                                        <option value="ML">Mali</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="MM">Myanmar</option>
+                                        <option value="NP">Nepal</option>
+                                        <option value="NE">Niger</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="PK">Pakistan</option>
+                                        <option value="PY">Palestinian living in Syria</option>
+                                        <option value="PX">Palestinian territories</option>
+                                        <option value="SN">Senegal</option>
+                                        <option value="RS">Serbia</option>
+                                        <option value="SO">Somalia</option>
+                                        <option value="SY">Syria</option>
+                                        <option value="SD">Sudan</option>
+                                        <option value="TN">Tunisia</option>
+                                        <option value="TR">Turkey</option>
+                                        <option value="YE">Yemen</option>
+                                        <option value=""><?php echo $this->lang->line('other'); ?>
+                            </select>
                     </div>
 
+                    <div class="form-group">
+                        <label for="marital-status"><?php echo $this->lang->line('marital_status'); ?></label>
+                            <select id="marital-status" class="required form-control">
+                                      <option value="Single"><?php echo $this->lang->line('single'); ?></option>
+                                      <option value="Married"><?php echo $this->lang->line('married'); ?></option>
+                                      <option value="Divorced"><?php echo $this->lang->line('divorced'); ?></option>
+                                      <option value="Widowed"><?php echo $this->lang->line('widowed'); ?></option>
+                                      <option value="Widowed"><?php echo $this->lang->line('non_specified'); ?></option>
+                            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="language"><?php echo $this->lang->line('language'); ?> *</label>
+                            <select id="language" class="required form-control">
+                                        <option value="AR">Arabic</option>
+                                        <option value="FA">Farsi</option>
+                                        <option value="DA">Dari</option>
+                                        <option value="UR">Urdu</option>
+                                        <option value="PS">Pashto</option>
+                                        <option value="KU">Kurdish</option>
+                                        <option value="EN">English</option>
+                                        <option value="FR">French</option>
+                                        <option value="SO">Somali</option>
+                                        <option value="AM">Amharic</option>
+                                        <option value="BN">Bengali</option>
+                                        <option value="TI">Tigrinya</option>
+                                        <option value="ES">Spanish</option>
+                                        <option value="EL">Greek</option>
+                                        <option value="XX">Other</option>
+                            </select>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="notes"><?php echo $this->lang->line('notes'); ?></label>
                         <textarea id="notes" rows="4" class="form-control"></textarea>

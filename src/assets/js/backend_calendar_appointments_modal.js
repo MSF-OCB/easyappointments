@@ -70,10 +70,13 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
                 first_name: $dialog.find('#first-name').val(),
                 last_name: $dialog.find('#last-name').val(),
                 email: $dialog.find('#email').val(),
-                phone_number: $dialog.find('#phone-number').val(),
+                gender: $dialog.find('#gender').val(),
+                phone_number_1: $dialog.find('#phone-number-1').val(),
+                phone_number_2: $dialog.find('#phone-number-2').val(),
                 address: $dialog.find('#address').val(),
-                city: $dialog.find('#city').val(),
-                zip_code: $dialog.find('#zip-code').val(),
+                country_origin: $dialog.find('#country').val(),
+                marital_status: $dialog.find('#marital-status').val(),
+                language: $dialog.find('#language').val(),
                 notes: $dialog.find('#customer-notes').val()
             };
 
@@ -206,11 +209,14 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
                     $('#customer-id').val(c.id);
                     $('#first-name').val(c.first_name);
                     $('#last-name').val(c.last_name);
+                    $('#gender').val(c.gender);
                     $('#email').val(c.email);
-                    $('#phone-number').val(c.phone_number);
+                    $('#phone-number-1').val(c.phone_number_1);
+                    $('#phone-number-2').val(c.phone_number_2);
                     $('#address').val(c.address);
-                    $('#city').val(c.city);
-                    $('#zip-code').val(c.zip_code);
+                    $('#country').val(c.country_origin);
+                    $('#marital-status').val(c.marital_status);
+                    $('#language').val(c.language);
                     $('#customer-notes').val(c.notes);
                     return false;
                 }
@@ -261,11 +267,14 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
                     $.each(GlobalVariables.customers, function(index, c) {
                         if (c.first_name.toLowerCase().indexOf(key) != -1
                                 || c.last_name.toLowerCase().indexOf(key) != -1
+                                || c.gender.toLowerCase().indexOf(key) != -1
                                 || c.email.toLowerCase().indexOf(key) != -1
-                                || c.phone_number.toLowerCase().indexOf(key) != -1
+                                || c.phone_number_1.toLowerCase().indexOf(key) != -1
+                                || c.phone_number_2.toLowerCase().indexOf(key) != -1
                                 || c.address.toLowerCase().indexOf(key) != -1
-                                || c.city.toLowerCase().indexOf(key) != -1
-                                || c.zip_code.toLowerCase().indexOf(key) != -1
+                                || c.country_origin.toLowerCase().indexOf(key) != -1
+                                || c.marital_status.toLowerCase().indexOf(key) != -1
+                                || c.language.toLowerCase().indexOf(key) != -1
                                 || c.notes.toLowerCase().indexOf(key) != -1) {
                             $list.append('<div data-id="' + c.id + '">'
                                     + c.first_name + ' ' + c.last_name + '</div>');

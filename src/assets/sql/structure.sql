@@ -117,9 +117,27 @@ CREATE TABLE IF NOT EXISTS `ea_user_settings` (
   PRIMARY KEY (`id_users`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `ea_customers` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(256) DEFAULT NULL,
+  `last_name` varchar(512) DEFAULT NULL,
+  `email` varchar(512) DEFAULT NULL,
+  `phone_number_1` varchar(128) DEFAULT NULL,
+  `phone_number_2` varchar(128) DEFAULT NULL,
+  `address` varchar(256) DEFAULT NULL,
+  `country_origin` varchar(2) DEFAULT NULL,
+  `gender` varchar(1) DEFAULT NULL,
+  `language` varchar(2) DEFAULT NULL,
+  `marital_status` varchar(2) DEFAULT NULL,
+  `notes` text,
+  `id_roles` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_roles` (`id_roles`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
+
 
 ALTER TABLE `ea_appointments`
-  ADD CONSTRAINT `ea_appointments_ibfk_2` FOREIGN KEY (`id_users_customer`) REFERENCES `ea_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ea_appointments_ibfk_2` FOREIGN KEY (`id_users_customer`) REFERENCES `ea_customers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ea_appointments_ibfk_3` FOREIGN KEY (`id_services`) REFERENCES `ea_services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ea_appointments_ibfk_4` FOREIGN KEY (`id_users_provider`) REFERENCES `ea_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 

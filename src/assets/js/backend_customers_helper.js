@@ -147,10 +147,13 @@
                 first_name: $('#first-name').val(),
                 last_name: $('#last-name').val(),
                 email: $('#email').val(),
-                phone_number: $('#phone-number').val(),
+                gender: $('#gender').val(),
+                phone_number_1: $('#phone-number-1').val(),
+                phone_number_2: $('#phone-number-2').val(),
                 address: $('#address').val(),
-                city: $('#city').val(),
-                zip_code: $('#zip-code').val(),
+                country_origin: $('#country').val(),
+                marital_status: $('#marital-status').val(),
+                language: $('#language').val(),
                 notes: $('#notes').val()
             };
 
@@ -256,10 +259,24 @@
             }
 
             // Validate email address.
-            if (!GeneralFunctions.validateEmail($('#email').val())) {
-                $('#email').css('border', '2px solid red');
-                throw EALang['invalid_email'];
+            if($('#email').val() != '') { //Added this to allow not providing it
+                if (!GeneralFunctions.validateEmail($('#email').val())) {
+                    $('#email').css('border', '2px solid red');
+                    throw EALang['invalid_email'];
+                }
             }
+          
+            //Validate phone number
+            var phone = $('#phone-number-1').val();
+            if (!(!isNaN(parseFloat(phone)) && isFinite(phone))) {
+                throw EALang['invalid_phone_number_1'];
+            }    
+            var phone = $('#phone-number-2').val();
+            if (phone != '') {
+                if(!(!isNaN(parseFloat(phone)) && isFinite(phone))) {
+                    throw EALang['invalid_phone_number_2'];
+                }
+            } 
 
             return true;
 
@@ -299,11 +316,14 @@
         $('#customer-id').val(customer.id);
         $('#first-name').val(customer.first_name);
         $('#last-name').val(customer.last_name);
+        $('#gender').val(customer.gender);
         $('#email').val(customer.email);
-        $('#phone-number').val(customer.phone_number);
+        $('#phone-number-1').val(customer.phone_number_1);
+        $('#phone-number-2').val(customer.phone_number_2);
         $('#address').val(customer.address);
-        $('#city').val(customer.city);
-        $('#zip-code').val(customer.zip_code);
+        $('#country').val(customer.country_origin);
+        $('#marital-status').val(customer.marital_status);
+        $('#language').val(customer.language);
         $('#notes').val(customer.notes);
 
         $('#customer-appointments').data('jsp').destroy();
