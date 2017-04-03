@@ -188,28 +188,28 @@
                             </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="language"><?php echo $this->lang->line('language'); ?> *</label>
-                            <select id="language" class="required form-control">
-                                        <option value="AR">Arabic</option>
-                                        <option value="FA">Farsi</option>
-                                        <option value="DA">Dari</option>
-                                        <option value="UR">Urdu</option>
-                                        <option value="PS">Pashto</option>
-                                        <option value="KU">Kurdish</option>
-                                        <option value="EN">English</option>
-                                        <option value="FR">French</option>
-                                        <option value="SO">Somali</option>
-                                        <option value="AM">Amharic</option>
-                                        <option value="BN">Bengali</option>
-                                        <option value="TI">Tigrinya</option>
-                                        <option value="ES">Spanish</option>
-                                        <option value="EL">Greek</option>
-                                        <option value="XX">Other</option>
-                            </select>
-                    </div>
-                    
-                    <div class="form-group">
+					<div class="form-group">
+						<label for="language"><?php echo $this->lang->line('language'); ?> *</label> 
+						<select id="language" class="required form-control">
+							<option value="ar">Arabic</option>
+							<option value="fa">Farsi</option>
+							<option value="di">Dari</option>
+							<option value="ur">Urdu</option>
+							<option value="ps">Pashto</option>
+							<option value="ku">Kurdish</option>
+							<option value="en">English</option>
+							<option value="fr">French</option>
+							<option value="so">Somali</option>
+							<option value="am">Amharic</option>
+							<option value="bn">Bengali</option>
+							<option value="ti">Tigrinya</option>
+							<option value="es">Spanish</option>
+							<option value="el">Greek</option>
+							<option value="xx">Other</option>
+						</select>
+					</div>
+
+					<div class="form-group">
                         <label for="notes"><?php echo $this->lang->line('notes'); ?></label>
                         <textarea id="notes" rows="4" class="form-control"></textarea>
                     </div>
