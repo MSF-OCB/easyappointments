@@ -414,8 +414,8 @@ INSERT INTO `ea_countries` VALUES (null, 'ZR', 'Zaire');
 INSERT INTO `ea_countries` VALUES (null, 'ZM', 'Zambia');
 INSERT INTO `ea_countries` VALUES (null, 'ZW', 'Zimbabwe');
 INSERT INTO `ea_countries` VALUES (null, 'ZW', 'Zimbabwe');
---Custom for MSF
-INSERT INTO `ea_countries` VALUES (null, 'PY', 'Palestinian living in Syria');
+/* Custom for MSF */
+INSERT INTO `ea_countries` VALUES (null, 'PX', 'Palestinian living in Syria');
 
 INSERT INTO `ea_languages` VALUES ('1', 'English', 'EN');
 INSERT INTO `ea_languages` VALUES ('2', 'Afar', 'aa');
@@ -552,5 +552,5 @@ INSERT INTO `ea_languages` VALUES ('132', 'Xhosa', 'xh');
 INSERT INTO `ea_languages` VALUES ('133', 'Yoruba', 'yo');
 INSERT INTO `ea_languages` VALUES ('134', 'Chinese', 'zh');
 INSERT INTO `ea_languages` VALUES ('135', 'Zulu', 'zu');
---Custom for MSF
+/* Custom for MSF */
 INSERT INTO `ea_languages` VALUES ('136', 'Dari', 'di');
