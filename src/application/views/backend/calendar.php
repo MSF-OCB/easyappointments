@@ -348,8 +348,8 @@
                                                 <option value="NE">Niger</option>
                                                 <option value="NG">Nigeria</option>
                                                 <option value="PK">Pakistan</option>
-                                                <option value="PY">Palestinian living in Syria</option>
-                                                <option value="PX">Palestinian territories</option>
+	        	                                <option value="PX">Palestinian living in Syria</option>
+    		                                    <option value="PS">Palestinian territories</option>
                                                 <option value="SN">Senegal</option>
                                                 <option value="RS">Serbia</option>
                                                 <option value="SO">Somalia</option>
