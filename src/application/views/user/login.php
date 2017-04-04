@@ -115,6 +115,7 @@
 </head>
 <body>
     <div id="login-frame" class="frame-container">
+        <img id="msf-logo-icon" class="pull-left" height="82" width="110" src="<?php echo base_url('assets/img/msf-logo-mid.png'); ?>" />
         <h2><?php echo $this->lang->line('backend_section'); ?></h2>
         <p><?php echo $this->lang->line('you_need_to_login'); ?></p>
         <hr>

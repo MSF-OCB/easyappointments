@@ -76,6 +76,7 @@
         <div class="navbar-header">
             <div id="header-logo" class="navbar-brand">
                 <img src="<?php echo $base_url; ?>/assets/img/logo.png">
+                <img style="height:50px; width:60px;" src="<?php echo $base_url; ?>/assets/img/msf-logo-mid.png">
                 <span><?php echo $company_name; ?></span>
             </div>
             
