@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `ea_roles` (
   `customers` int(4) DEFAULT NULL COMMENT '0',
   `services` int(4) DEFAULT NULL COMMENT '0',
   `users` int(4) DEFAULT NULL COMMENT '0',
+  `reports` int(4) DEFAULT NULL COMMENT '0',
   `system_settings` int(4) DEFAULT NULL COMMENT '0',
   `user_settings` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -158,11 +159,11 @@ ALTER TABLE `ea_user_settings`
   ADD CONSTRAINT `ea_user_settings_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `ea_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
-INSERT INTO `ea_roles` (`id`, `name`, `slug`, `is_admin`, `appointments`, `customers`, `services`, `users`, `system_settings`, `user_settings`) VALUES
-(1, 'Administrator', 'admin', 1, 15, 15, 15, 15, 15, 15),
-(2, 'Provider', 'provider', 0, 15, 15, 0, 0, 0, 15),
-(3, 'Customer', 'customer', 0, 0, 0, 0, 0, 0, 0),
-(4, 'Secretary', 'secretary', 0, 15, 15, 0, 0, 0, 15);
+INSERT INTO `ea_roles` (`id`, `name`, `slug`, `is_admin`, `appointments`, `customers`, `services`, `users`, `reports`, `system_settings`, `user_settings`) VALUES
+(1, 'Administrator', 'admin', 1, 15, 15, 15, 15, 15, 15, 15),
+(2, 'Provider', 'provider', 0, 15, 15, 0,0, 0, 0, 15),
+(3, 'Customer', 'customer', 0, 0, 0, 0, 0,0, 0, 0),
+(4, 'Secretary', 'secretary', 0, 15, 15, 0, 0, 0, 0, 15);
 
 INSERT INTO `ea_settings` (`name`, `value`) VALUES
 ('company_working_plan', '{"monday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"tuesday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"wednesday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"thursday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"friday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"saturday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"sunday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]}}'),

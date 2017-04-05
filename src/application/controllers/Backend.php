@@ -121,7 +121,37 @@ class Backend extends CI_Controller {
         $this->load->view('backend/footer', $view);
     }
 
-    /**
+	public function reports() {
+		$this->session->set_userdata('dest_url', site_url('backend/reports'));
+		if (!$this->_has_privileges(PRIV_REPORTS)) return;
+
+		$this->load->model('appointments_model');
+		$this->load->model('providers_model');
+		$this->load->model('customers_model');
+		$this->load->model('services_model');
+		$this->load->model('settings_model');
+		$this->load->model('user_model');
+
+
+		$view['base_url'] = $this->config->item('base_url');
+		$view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+		$view['active_menu'] = PRIV_REPORTS;
+		$view['company_name'] = $this->settings_model->get_setting('company_name');
+		$view['date_format'] = $this->settings_model->get_setting('date_format');
+		$view['customers'] = $this->customers_model->get_batch();
+		$view['available_providers'] = $this->providers_model->get_available_providers();
+		$view['available_services'] = $this->services_model->get_available_services();
+		$view['appointments'] = $this->appointments_model->getReports();
+		$this->set_user_data($view);
+
+		$this->load->view('backend/header', $view);
+		$this->load->view('backend/reports', $view);
+		$this->load->view('backend/footer', $view);
+
+    }
+
+
+	/**
      * Displays the backend services page.
      *
      * Here the admin user will be able to organize and create the services

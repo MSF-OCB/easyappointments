@@ -136,6 +136,17 @@
                     </a>
                 </li>
 
++                   <?php // REPORTS MENU ITEM
++                   // ------------------------------------------------------ ?>
++                   <?php $hidden = ($privileges[PRIV_REPORTS]['view'] == TRUE) ? '' : 'hidden'; ?>
++                   <?php $active = ($active_menu == PRIV_REPORTS) ? 'active' : ''; ?>
++                <li class="<?php echo $active . $hidden; ?>">
++                    <a href="<?php echo site_url('backend/reports'); ?>" class="menu-item"
+                    +                       title="<?php echo $this->lang->line('manage_reports_hint'); ?>">
++                                   <?php echo $this->lang->line('reports'); ?>
++                    </a>
++                </li>
+
                 <?php // SETTINGS MENU ITEM
                       // ------------------------------------------------------ ?>
                 <?php $hidden = ($privileges[PRIV_SYSTEM_SETTINGS]['view'] == TRUE
