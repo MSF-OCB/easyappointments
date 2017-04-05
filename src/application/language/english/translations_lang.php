@@ -282,3 +282,5 @@ $lang['flexible'] = 'Flexible';
 $lang['fixed'] = 'Fixed';
 $lang['attendants_number'] = 'Attendants Number';
 
+$lang['no_show'] = 'No Show';
+$lang['shown'] = 'Showed';

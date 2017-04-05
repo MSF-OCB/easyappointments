@@ -229,6 +229,7 @@
                                     <textarea id="appointment-notes" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
+                            <input type="hidden" id="no-show" value="0">
                         </fieldset>
 
                         <fieldset class="container">

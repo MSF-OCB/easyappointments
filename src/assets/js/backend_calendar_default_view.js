@@ -74,6 +74,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                 $dialog.find('#appointment-id').val(appointment['id']);
                 $dialog.find('#select-service').val(appointment['id_services']).trigger('change');
                 $dialog.find('#select-provider').val(appointment['id_users_provider']);
+                $dialog.find('#no-show').val(appointment['no_show']);
 
                 // Set the start and end datetime of the appointment.
                 var startDatetime = Date.parseExact(appointment['start_datetime'],
@@ -246,6 +247,102 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
         return (result > 500) ? result : 500; // Minimum height is 500px
     }
 
+
+    function _checkNoShow(appointment, no_show_val, successCallback) {
+        // Prepare appointment data.
+        appointment = GeneralFunctions.clone(appointment);
+
+        // Must delete the following because only appointment data should be provided to the ajax call.
+        delete appointment['customer'];
+        delete appointment['provider'];
+        delete appointment['service'];
+
+        appointment['no_show'] = no_show_val;
+
+        var postUrl  = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_save_appointment';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+            appointment_data: JSON.stringify(appointment)
+        };
+
+        var localSuccessCallback = function (response) {
+            var undoFunction = function () {
+                _checkNoShow(appointment, 0, successCallback)
+            };
+
+            Backend.displayNotification(EALang['appointment_updated'], [
+                {
+                    'label'   : 'Undo',
+                    'function': undoFunction
+                }
+            ]);
+
+            if (successCallback !== undefined) {
+                successCallback(response);
+            }
+
+            $('#select-filter-item').trigger('change');
+
+            // Set timer to hide the notification
+            if (GlobalVariables.NOTIFICATION_BLIND_TIMER) {
+                clearTimeout(GlobalVariables.NOTIFICATION_BLIND_TIMER);
+                GlobalVariables.NOTIFICATION_BLIND_TIMER = undefined;
+            }
+            GlobalVariables.NOTIFICATION_BLIND_TIMER = setTimeout(function () {
+                $('#notification').hide('blind');
+            }, 5000)
+        };
+
+        $.post(postUrl, postData, function(response) {
+            $('#notification').hide('blind');
+
+            localSuccessCallback && localSuccessCallback(response);
+        }, 'json').fail(GeneralFunctions.ajaxFailureHandler);
+
+    }
+
+    function _setNoShowEvent(event, isNoShow) {
+        var eventData = event.data;
+        if (!isNoShow) {
+            // When not shown
+            $('#no-show-btn')
+                .unbind('mouseenter mouseleave')
+                .off('click')
+                .on('mouseenter', function () {
+                    $(this).addClass('btn-success').removeClass('btn-danger').text(EALang['no_show']);
+                })
+                .on('mouseleave', function () {
+                    $(this).addClass('btn-danger').removeClass('btn-success').text(EALang['shown']);
+                })
+                .click(function () {
+                    _checkNoShow(eventData, 1, function successCallback() {
+                        $(this)
+                            .addClass('btn-danger')
+                            .removeClass('btn-success')
+                            .off('hover')
+                            .text(EALang['no_show'])
+                            .off('click');
+                        _setCheckedInStatusEvent(eventData, false);
+                    }.bind(this));
+                });
+        } else {
+            $('#no-show-btn')
+                .unbind('mouseenter mouseleave')
+                .off('click')
+                .click(function () {
+                    _checkNoShow(eventData, 0, function successCallback() {
+                        $(this)
+                            .addClass('btn-danger')
+                            .removeClass('btn-success')
+                            .text(EALang['shown'])
+                            .off('click');
+                        _setCheckedInStatusEvent(eventData, true);
+                    }.bind(this));
+                });
+        }
+    }
+
+
     /**
      * Calendar Event "Click" Callback
      *
@@ -263,6 +360,8 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
         // need to use different selectors to reach the parent element.
         var $parent = $(jsEvent.target.offsetParent);
         var $altParent = $(jsEvent.target).parents().eq(1);
+        var $tmpTime = new Date();
+        var no_show = ($tmpTime.getTime() > event.end.getTime());
 
         if ($parent.hasClass('fc-unavailable') || $altParent.hasClass('fc-unavailable')) {
             displayEdit = (($parent.hasClass('fc-custom') || $altParent.hasClass('fc-custom'))
@@ -291,7 +390,12 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         + notes
                         + '<hr>' +
                     '<center>' +
-                        '<button class="edit-popover btn btn-primary ' + displayEdit + '">' + EALang['edit'] + '</button>' +
+                    (no_show !== false ? (
+                        '<button style="margin-bottom : 5px;" id="no-show-btn" class="btn '+
+                            (event.data['no_show'] == 1 ?  'btn-danger' :'btn-warning')+
+                        '">' + EALang['no_show'] + '</button><br>'
+                    ) : '' ) +
+                    '<button class="edit-popover btn btn-primary ' + displayEdit + '">' + EALang['edit'] + '</button>' +
                         '<button class="delete-popover btn btn-danger ' + displayDelete + '">' + EALang['delete'] + '</button>' +
                         '<button class="close-popover btn btn-default" data-po=' + jsEvent.target + '>' + EALang['close'] + '</button>' +
                     '</center>';
@@ -324,6 +428,11 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         + event.data['customer']['last_name']
                         + '<hr>' +
                     '<center>' +
+                    (no_show !== false ? (
+                        '<button style="margin-bottom : 5px;" id="no-show-btn" class="btn '+
+                        (event.data['no_show'] != 1 ?  'btn-danger' :'btn-success')+
+                        '">' + (event.data['no_show'] == 1 ?  EALang['shown'] :EALang['no_show'] )+ '</button><br>'
+                    ) : '' ) +
                         '<button class="edit-popover btn btn-primary ' + displayEdit + '">' + EALang['edit'] + '</button>' +
                         '<button class="delete-popover btn btn-danger ' + displayDelete + '">' + EALang['delete'] + '</button>' +
                         '<button class="close-popover btn btn-default" data-po=' + jsEvent.target + '>' + EALang['close'] + '</button>' +
@@ -346,6 +455,17 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
         if ($('.popover').length > 0) {
             if ($('.popover').position().top < 200) $('.popover').css('top', '200px');
         }
+
+        if (event.data['no_show'] == 1) {
+            $(jsEvent.target).on('shown.bs.popover', function () {
+                _setNoShowEvent(event, true);
+            });
+        } else {
+            $(jsEvent.target).on('shown.bs.popover', function () {
+                _setNoShowEvent(event, false);
+            });
+        }
+
     }
 
     /**
@@ -756,6 +876,9 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                     allDay: false,
                     data: appointment // Store appointment data for later use.
                 };
+                if(appointment.no_show == 1) {
+                    event.backgroundColor = '#f9bdbb';
+                }
 
                 calendarEvents.push(event);
             });
