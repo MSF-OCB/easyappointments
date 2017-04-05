@@ -43,6 +43,20 @@ class Appointments extends CI_Controller {
 	}
 
     /**
+     * Default Method
+     *
+     * The default method will redirect the browser to the user/login URL.
+     */   
+    public function index() {
+        if ($this->session->userdata('username')) {
+            redirect('appointments/book_wizard');
+            return;
+        }
+        header('Location: ' . site_url('user/login_frontend'));
+        $this->session->set_userdata('dest_url', site_url('appointments/book_wizard'));
+    }
+    
+    /**
      * Default callback method of the application.
      *
      * This method creates the appointment book wizard. If an appointment hash
@@ -51,7 +65,11 @@ class Appointments extends CI_Controller {
      *
      * @param string $appointment_hash The db appointment hash of an existing record.
      */
-    public function index($appointment_hash = '') {
+    public function book_wizard($appointment_hash = '') {
+        if (!$this->session->userdata('username')) {
+            redirect('user/login_frontend');
+            return;
+        }
         if (!is_ea_installed()) {
             redirect('installation/index');
             return;
