@@ -322,7 +322,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                             .off('hover')
                             .text(EALang['no_show'])
                             .off('click');
-                        _setCheckedInStatusEvent(eventData, false);
+                        _setNoShowEvent(eventData, false);
                     }.bind(this));
                 });
         } else {
@@ -336,7 +336,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                             .removeClass('btn-success')
                             .text(EALang['shown'])
                             .off('click');
-                        _setCheckedInStatusEvent(eventData, true);
+                        _setNoShowEvent(eventData, true);
                     }.bind(this));
                 });
         }
