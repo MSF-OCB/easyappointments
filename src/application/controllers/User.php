@@ -69,12 +69,13 @@ class User extends CI_Controller {
     	$this->load->model('settings_model');
     
     	$view['base_url'] = $this->config->item('base_url');
-    	$view['dest_url'] = $this->session->userdata('dest_url');
-    
-    	if (!$view['dest_url']) {
-    		$view['dest_url'] = site_url('appointments/book_wizard');
-    	}
-    
+
+	    // Default is our site root /
+	    $view['dest_url'] = site_url();
+	    if($this->session->userdata('dest_url')) {
+		    $view['dest_url'] = $this->session->userdata('dest_url');
+	    }
+
     	$view['company_name'] = $this->settings_model->get_setting('company_name');
     	$this->load->view('user/login_frontend', $view);
     }

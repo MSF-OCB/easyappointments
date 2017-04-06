@@ -41,20 +41,6 @@ class Appointments extends CI_Controller {
 		// Common helpers
 		$this->load->helper('google_analytics');
 	}
-
-    /**
-     * Default Method
-     *
-     * The default method will redirect the browser to the user/login URL.
-     */   
-    public function index() {
-        if ($this->session->userdata('username')) {
-            redirect('appointments/book_wizard');
-            return;
-        }
-        header('Location: ' . site_url('user/login_frontend'));
-        $this->session->set_userdata('dest_url', site_url('appointments/book_wizard'));
-    }
     
     /**
      * Default callback method of the application.
@@ -65,13 +51,17 @@ class Appointments extends CI_Controller {
      *
      * @param string $appointment_hash The db appointment hash of an existing record.
      */
-    public function book_wizard($appointment_hash = '') {
+	 public function index($appointment_hash = '') {
+		 // This check can be moved at the constructor,
+		 // If the app is not installed the how controller should be not accessible
+		 if (!is_ea_installed()) {
+			 redirect('installation/index');
+			 return;
+		 }
+
         if (!$this->session->userdata('username')) {
-            redirect('user/login_frontend');
-            return;
-        }
-        if (!is_ea_installed()) {
-            redirect('installation/index');
+	        $this->session->set_userdata('dest_url', site_url());
+	        redirect('user/login_frontend');
             return;
         }
 
