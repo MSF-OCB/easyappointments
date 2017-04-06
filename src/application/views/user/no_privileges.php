@@ -72,7 +72,7 @@
 
         <a href="<?php echo site_url('backend') ?>" class="btn btn-success btn-large">
             <i class="icon-calendar icon-white"></i>
-            <?php echo $this->lang->line('backend_calendar'); ?>
+            <?php echo $this->lang->line('go_back_to_backend'); ?>
         </a>
     </div>
 </body>

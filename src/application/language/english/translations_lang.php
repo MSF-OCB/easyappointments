@@ -283,4 +283,5 @@ $lang['availabilities_type'] = 'Availabilities Type';
 $lang['flexible'] = 'Flexible';
 $lang['fixed'] = 'Fixed';
 $lang['attendants_number'] = 'Attendants Number';
+$lang['go_back_to_backend'] = 'Back to backend login';
 
