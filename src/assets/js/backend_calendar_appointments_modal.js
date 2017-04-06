@@ -484,9 +484,11 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
             }
 
             // Check email address.
-            if (!GeneralFunctions.validateEmail($dialog.find('#email').val())) {
-                $dialog.find('#email').parents('.form-group').eq(1).addClass('has-error');
-                throw EALang['invalid_email'];
+            if($('#email').val() != '') { //Allow empty customer email
+                if (!GeneralFunctions.validateEmail($dialog.find('#email').val())) {
+                    $dialog.find('#email').parents('.form-group').eq(1).addClass('has-error');
+                    throw EALang['invalid_email'];
+                }
             }
 
             // Check appointment start and end time.

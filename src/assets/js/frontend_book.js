@@ -361,7 +361,7 @@ window.FrontendBook = window.FrontendBook || {};
             }
 
             // Validate email address.
-            if($('#email').val() != '') { //Added this to allow not providing it
+            if($('#email').val() != '') { //Allow empty customer email
                 if (!GeneralFunctions.validateEmail($('#email').val())) {
                     $('#email').css('border', '2px solid red');
                     throw EALang['invalid_email'];
