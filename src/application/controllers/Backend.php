@@ -126,6 +126,7 @@ class Backend extends CI_Controller {
 		if (!$this->_has_privileges(PRIV_REPORTS)) return;
 
 		$this->load->model('appointments_model');
+		$this->load->model('reports_model');
 		$this->load->model('providers_model');
 		$this->load->model('customers_model');
 		$this->load->model('services_model');
@@ -141,7 +142,7 @@ class Backend extends CI_Controller {
 		$view['customers'] = $this->customers_model->get_batch();
 		$view['available_providers'] = $this->providers_model->get_available_providers();
 		$view['available_services'] = $this->services_model->get_available_services();
-		$view['appointments'] = $this->appointments_model->getReports();
+		$view['reports'] = $this->reports_model->getAll();
 		$this->set_user_data($view);
 
 		$this->load->view('backend/header', $view);
