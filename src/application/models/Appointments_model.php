@@ -191,9 +191,9 @@ class Appointments_Model extends CI_Model {
             // Check if the customer's id is valid.
             $num_rows = $this->db
                     ->select('*')
-                    ->from('ea_users')
-                    ->join('ea_roles', 'ea_roles.id = ea_users.id_roles', 'inner')
-                    ->where('ea_users.id', $appointment['id_users_customer'])
+                    ->from('ea_customers')
+                    ->join('ea_roles', 'ea_roles.id = ea_customers.id_roles', 'inner')
+                    ->where('ea_customers.id', $appointment['id_users_customer'])
                     ->where('ea_roles.slug', DB_SLUG_CUSTOMER)
                     ->get()->num_rows();
             if ($num_rows == 0) {

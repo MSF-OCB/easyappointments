@@ -498,11 +498,14 @@ class Backend_api extends CI_Controller {
 	    			'(first_name LIKE upper("%' . $key . '%") OR ' .
 	    			'last_name  LIKE upper("%' . $key . '%") OR ' .
 	    			'email LIKE upper("%' . $key . '%") OR ' .
-	    			'phone_number LIKE upper("%' . $key . '%") OR ' .
+	    			'phone_number_1 LIKE upper("%' . $key . '%") OR ' .
+                                'phone_number_2 LIKE upper("%' . $key . '%") OR ' .
 	    			'address LIKE upper("%' . $key . '%") OR ' .
-	    			'city LIKE upper("%' . $key . '%") OR ' .
-	    			'zip_code LIKE upper("%' . $key . '%") OR ' .
-                    'notes LIKE upper("%' . $key . '%"))';
+	    			'country_origin LIKE upper("%' . $key . '%") OR ' .
+	    			'gender LIKE upper("%' . $key . '%") OR ' .
+                                'marital_status LIKE upper("%' . $key . '%") OR ' .
+                                'language LIKE upper("%' . $key . '%") OR ' .
+                                'notes LIKE upper("%' . $key . '%"))';
 
             $customers = $this->customers_model->get_batch($where_clause);
 
