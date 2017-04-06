@@ -76,7 +76,7 @@ class Customers_Model extends CI_Model {
         return ($num_rows > 0) ? TRUE : FALSE;
     }*/
     public function exists($customer) {
-        if (!isset($customer['first_name ']) || !isset($customer['last_name '])) {
+        if (!isset($customer['first_name']) || !isset($customer['last_name'])) {
             throw new Exception('Customer\'s name and last name not provided.');
         }
 
@@ -157,9 +157,8 @@ class Customers_Model extends CI_Model {
      * @return int Returns the id.
      */
     public function find_record_id($customer) {
-        if (!isset($customer['email'])) {
-            throw new Exception('Customer\'s email was not provided: '
-                    . print_r($customer, TRUE));
+        if (!isset($customer['first_name']) || !isset($customer['last_name'])) {
+            throw new Exception('Customer\'s name and last name not provided.');
         }
 
         // Get customer's role id
@@ -167,7 +166,8 @@ class Customers_Model extends CI_Model {
                 ->select('ea_customers.id')
                 ->from('ea_customers')
                 ->join('ea_roles', 'ea_roles.id = ea_customers.id_roles', 'inner')
-                ->where('ea_customers.email', $customer['email'])
+                ->where('ea_customers.first_name', $customer['first_name'])
+                ->where('ea_customers.last_name', $customer['last_name'])
                 ->where('ea_roles.slug', DB_SLUG_CUSTOMER)
                 ->get();
 
@@ -210,8 +210,7 @@ class Customers_Model extends CI_Model {
                     . print_r($customer, TRUE));
         }
 
-        //Make email not mandatory
-        if($customer['email'] != '') {
+        if($customer['email'] != '') {  //Allow empty customer email
 
             // Validate email address
             if (!filter_var($customer['email'], FILTER_VALIDATE_EMAIL)) {

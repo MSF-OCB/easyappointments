@@ -450,9 +450,11 @@ class Appointments extends CI_Controller {
 						FILTER_VALIDATE_BOOLEAN);
 
 				if ($send_customer === TRUE) {
+                                    if($customer['email'] != '') {   //Allow empty customer email
 					$email->sendAppointmentDetails($appointment, $provider,
 							$service, $customer,$company_settings, $customer_title,
 							$customer_message, $customer_link, new Email($customer['email']));
+                                    }
 				}
 
 				$send_provider = filter_var($this->providers_model ->get_setting('notifications', $provider['id']),
