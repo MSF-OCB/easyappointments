@@ -300,3 +300,8 @@ $lang['widowed'] = 'Widowed';
 $lang['non_specified'] = 'Non specified';
 //$lang[''] = '';
 
+
+$lang['status'] = 'Status';
+$lang['date'] = 'Date';
+$lang['country'] = 'Country';
+$lang['filters'] = 'Filters';

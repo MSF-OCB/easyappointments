@@ -6,8 +6,29 @@
 <script type="text/javascript"
         src="<?php echo $base_url; ?>/assets/js/backend_reports_helper.js"></script>
 <style type="text/css">
+    #filterTable {
+        margin-bottom: 10px;
+    }
     .form-group {
-        margin: auto 10px;
+        margin: 5px 10px;
+        border: 1px solid #ddd;
+        padding: 2px;
+        width: 20%;
+    }
+    .form-control {width: 180px !important;}
+    .form-group label {
+        margin-right: 5px;
+        width: 55px;
+    }
+    tfoot {
+        display: table-header-group;
+    }
+    #labtech_filter {
+        display: none;
+    }
+    .dt-buttons {
+        float: right;
+        margin-bottom:10px;
     }
 </style>
 <script type="text/javascript"
@@ -60,11 +81,43 @@
                 { "mDataProp": "country_origin" },
                 { "mDataProp": "language" },
                 { "mDataProp": "status" }
-            ]
+            ],
+            initComplete: function () {
+                this.api().columns().every( function (i) {
+                    var column = this;
+                    if(i >= 7) {
+                        var select = $('<select class="form-control"><option value=""></option></select>')
+                            .appendTo($('#filterTable div')[i])
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    } else {
+                        var select = $('<input class="form-control" type="text">')
+                            .appendTo($('#filterTable div')[i])
+                            .on('keyup change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val)
+                                    .draw();
+                            });
+                    }
+                } );
+            }
         });
-        $( '#tableFilters input').on( 'keyup change', function () {
-            table.draw()
-        } );
+
      });
 
 
@@ -77,41 +130,20 @@
 	<div class="row">
 
 		<div class="col-xs-10 col-xs-offset-1">
-            <form class="form-inline" id="tableFilters" style="border: 1px solid #aaa; padding: 8px;">
-                <div class="form-group">
-                    <label for="exampleInputName2">Name</label>
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName2">Name</label>
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName2">Name</label>
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName2">Name</label>
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName2">Name</label>
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName2">Name</label>
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName2">Name</label>
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName2">Name</label>
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                </div>
-            </form>
-
+            <h5><?php echo $this->lang->line('filters');?></h5>
+            <div id="filterTable" class="form form-inline">
+                <div class="form-group"><label><?php echo $this->lang->line('date');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('category');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('service');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('provider');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('customer');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('gender');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('address');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('phone');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('country');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('language');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('status');?></label></div>
+            </div>
             <table id="labtech" class="table table-condensed table-bordered" cellspacing="0" width="100%">
 				<thead>
 					<tr>

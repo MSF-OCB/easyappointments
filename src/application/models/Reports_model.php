@@ -17,9 +17,9 @@ class Reports_model extends CI_Model
 			FROM ea_appointments ap
 				INNER JOIN ea_services se ON ap.id_services = se.id
 				INNER JOIN ea_services_providers sp ON ap.id_services = sp.id_services
-				LEFT JOIN ea_service_categories sc ON se.id_service_categories = sc.id
-				LEFT JOIN ea_customers cu ON ap.id_users_customer = cu.id
-				LEFT JOIN ea_users us ON ap.id_users_provider = us.id ')
+				INNER JOIN ea_service_categories sc ON se.id_service_categories = sc.id
+				INNER JOIN ea_customers cu ON ap.id_users_customer = cu.id
+				INNER JOIN ea_users us ON ap.id_users_provider = us.id ')
 		->result();
 	}
 }
