@@ -390,11 +390,6 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         + notes
                         + '<hr>' +
                     '<center>' +
-                    (no_show !== false ? (
-                        '<button style="margin-bottom : 5px;" id="no-show-btn" class="btn '+
-                            (event.data['no_show'] == 1 ?  'btn-danger' :'btn-warning')+
-                        '">' + EALang['no_show'] + '</button><br>'
-                    ) : '' ) +
                     '<button class="edit-popover btn btn-primary ' + displayEdit + '">' + EALang['edit'] + '</button>' +
                         '<button class="delete-popover btn btn-danger ' + displayDelete + '">' + EALang['delete'] + '</button>' +
                         '<button class="close-popover btn btn-default" data-po=' + jsEvent.target + '>' + EALang['close'] + '</button>' +
@@ -428,7 +423,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         + event.data['customer']['last_name']
                         + '<hr>' +
                     '<center>' +
-                    (no_show !== false ? (
+                    (no_show !== false && event.data.hasOwnProperty('no_show') ? (
                         '<button style="margin-bottom : 5px;" id="no-show-btn" class="btn '+
                         (event.data['no_show'] != 1 ?  'btn-danger' :'btn-success')+
                         '">' + (event.data['no_show'] == 1 ?  EALang['shown'] :EALang['no_show'] )+ '</button><br>'
@@ -456,14 +451,16 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
             if ($('.popover').position().top < 200) $('.popover').css('top', '200px');
         }
 
-        if (event.data['no_show'] == 1) {
-            $(jsEvent.target).on('shown.bs.popover', function () {
-                _setNoShowEvent(event, true);
-            });
-        } else {
-            $(jsEvent.target).on('shown.bs.popover', function () {
-                _setNoShowEvent(event, false);
-            });
+        if(event.data !== undefined && event.data.hasOwnProperty('no_show')) {
+            if (event.data['no_show'] == 1) {
+                $(jsEvent.target).on('shown.bs.popover', function () {
+                    _setNoShowEvent(event, true);
+                });
+            } else {
+                $(jsEvent.target).on('shown.bs.popover', function () {
+                    _setNoShowEvent(event, false);
+                });
+            }
         }
 
     }
