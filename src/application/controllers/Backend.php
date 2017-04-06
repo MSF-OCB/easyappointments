@@ -123,7 +123,7 @@ class Backend extends CI_Controller {
 
 	public function reports() {
 		$this->session->set_userdata('dest_url', site_url('backend/reports'));
-		if (!$this->_has_privileges(PRIV_REPORTS)) return;
+		if (!$this->_has_privileges(PRIV_SYSTEM_SETTINGS)) return;
 
 		$this->load->model('appointments_model');
 		$this->load->model('reports_model');
@@ -136,7 +136,7 @@ class Backend extends CI_Controller {
 
 		$view['base_url'] = $this->config->item('base_url');
 		$view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
-		$view['active_menu'] = PRIV_REPORTS;
+		$view['active_menu'] = 'reports';
 		$view['company_name'] = $this->settings_model->get_setting('company_name');
 		$view['date_format'] = $this->settings_model->get_setting('date_format');
 		$view['customers'] = $this->customers_model->get_batch();

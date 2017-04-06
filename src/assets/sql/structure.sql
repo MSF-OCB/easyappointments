@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS `ea_roles` (
   `customers` int(4) DEFAULT NULL COMMENT '0',
   `services` int(4) DEFAULT NULL COMMENT '0',
   `users` int(4) DEFAULT NULL COMMENT '0',
-  `reports` int(4) DEFAULT NULL COMMENT '0',
   `system_settings` int(4) DEFAULT NULL COMMENT '0',
   `user_settings` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
