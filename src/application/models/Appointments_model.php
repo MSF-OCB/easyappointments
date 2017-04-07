@@ -31,6 +31,9 @@ class Appointments_Model extends CI_Model {
     public function add($appointment) {
         // Validate the appointment data before doing anything.
         $this->validate($appointment);
+        if(isset($appointment['no_show']) && !is_numeric($appointment['no_show'])) {
+	        $appointment['no_show'] = intval($appointment['no_show']);
+        }
 
         // Perform insert() or update() operation.
         if (!isset($appointment['id'])) {
