@@ -82,10 +82,12 @@
                 { "mDataProp": "language" },
                 { "mDataProp": "status" }
             ],
+            "pageLength": 50,
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
             initComplete: function () {
                 this.api().columns().every( function (i) {
                     var column = this;
-                    if(i >= 7) {
+                    if([1,2,8,9,10].indexOf(i) >= 0) {
                         var select = $('<select class="form-control"><option value=""></option></select>')
                             .appendTo($('#filterTable div')[i])
                             .on('change', function () {
