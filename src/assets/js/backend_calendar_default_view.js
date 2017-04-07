@@ -311,21 +311,9 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
             $('#no-show-btn')
                 .unbind('mouseenter mouseleave')
                 .off('click')
-                .on('mouseenter', function () {
-                    $(this).addClass('btn-success').removeClass('btn-danger').text(EALang['no_show']);
-                })
-                .on('mouseleave', function () {
-                    $(this).addClass('btn-danger').removeClass('btn-success').text(EALang['shown']);
-                })
                 .click(function () {
                     _checkNoShow(eventData, 1, function successCallback() {
-                        $(this)
-                            .addClass('btn-danger')
-                            .removeClass('btn-success')
-                            .off('hover')
-                            .text(EALang['no_show'])
-                            .off('click');
-                        _setNoShowEvent(eventData, false);
+                        $('.popover').remove();
                     }.bind(this));
                 });
         } else {
@@ -334,12 +322,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                 .off('click')
                 .click(function () {
                     _checkNoShow(eventData, 0, function successCallback() {
-                        $(this)
-                            .addClass('btn-danger')
-                            .removeClass('btn-success')
-                            .text(EALang['shown'])
-                            .off('click');
-                        _setNoShowEvent(eventData, true);
+                        $('.popover').remove();
                     }.bind(this));
                 });
         }
