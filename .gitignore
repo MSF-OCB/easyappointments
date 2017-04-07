@@ -15,3 +15,4 @@ src/config.php
 doc/apigen
 doc/jsdoc
 doc/plato
+/src/nbproject/private/
