@@ -133,9 +133,46 @@
                     <div class="form-group">
                         <label for="country"><?php echo $this->lang->line('country_origin'); ?> *</label>
                             <select id="country" class="required form-control">
-	                            <?php foreach ($countries as $code => $name) { ?>
-                                <option value="<?php echo $code; ?>"><?php echo $name; ?></option>
-	                            <?php } ?>
+                                <option value="AF"><?php echo $countries['AF']; ?></option>
+                                <option value="DZ"><?php echo $countries['DZ']; ?></option>
+                                <option value="BD"><?php echo $countries['BD']; ?></option>
+                                <option value="BF"><?php echo $countries['BF']; ?></option>
+                                <option value="CM"><?php echo $countries['CM']; ?></option>
+                                <option value="CF"><?php echo $countries['CF']; ?></option>
+                                <option value="TD"><?php echo $countries['TD']; ?></option>
+                                <option value="CG"><?php echo $countries['CG']; ?></option>
+                                <option value="CD"><?php echo $countries['CD']; ?></option>
+                                <option value="DO"><?php echo $countries['DO']; ?></option>
+                                <option value="EG"><?php echo $countries['EG']; ?></option>
+                                <option value="ER"><?php echo $countries['ER']; ?></option>
+                                <option value="ET"><?php echo $countries['ET']; ?></option>
+                                <option value="GM"><?php echo $countries['GM']; ?></option>
+                                <option value="GH"><?php echo $countries['GH']; ?></option>
+                                <option value="GW"><?php echo $countries['GW']; ?></option>
+                                <option value="GN"><?php echo $countries['GN']; ?></option>
+                                <option value="IN"><?php echo $countries['IN']; ?></option>
+                                <option value="IQ"><?php echo $countries['IQ']; ?></option>
+                                <option value="IR"><?php echo $countries['IR']; ?></option>
+                                <option value="IV"><?php echo $countries['IV']; ?></option>
+                                <option value="LB"><?php echo $countries['LB']; ?></option>
+                                <option value="LY"><?php echo $countries['LY']; ?></option>
+                                <option value="ML"><?php echo $countries['ML']; ?></option>
+                                <option value="MA"><?php echo $countries['MA']; ?></option>
+                                <option value="MM"><?php echo $countries['MM']; ?></option>
+                                <option value="NP"><?php echo $countries['NP']; ?></option>
+                                <option value="NE"><?php echo $countries['NE']; ?></option>
+                                <option value="NG"><?php echo $countries['NG']; ?></option>
+                                <option value="PK"><?php echo $countries['PK']; ?></option>
+                                <option value="PX"><?php echo $countries['PX']; ?></option>
+                                <option value="PS"><?php echo $countries['PS']; ?></option>
+                                <option value="SN"><?php echo $countries['SN']; ?></option>
+                                <option value="RS"><?php echo $countries['RS']; ?></option>
+                                <option value="SO"><?php echo $countries['SO']; ?></option>
+                                <option value="SY"><?php echo $countries['SY']; ?></option>
+                                <option value="SD"><?php echo $countries['SD']; ?></option>
+                                <option value="TN"><?php echo $countries['TN']; ?></option>
+                                <option value="TR"><?php echo $countries['TR']; ?></option>
+                                <option value="YE"><?php echo $countries['YE']; ?></option>
                                 <option value=""><?php echo $this->lang->line('other'); ?></option>
                             </select>
                     </div>
@@ -154,9 +191,20 @@
 					<div class="form-group">
 						<label for="language"><?php echo $this->lang->line('language'); ?> *</label> 
 						<select id="language" class="required form-control">
-							<?php foreach ($languages as $code => $name) { ?>
-                                <option value="<?php echo $code; ?>"><?php echo $name; ?></option>
-							<?php } ?>
+                            <option value="ar"><?php echo $languages['ar']; ?></option>
+                            <option value="fa"><?php echo $languages['fa']; ?></option>
+                            <option value="di"><?php echo $languages['di']; ?></option>
+                            <option value="ur"><?php echo $languages['ur']; ?></option>
+                            <option value="ps"><?php echo $languages['ps']; ?></option>
+                            <option value="ku"><?php echo $languages['ku']; ?></option>
+                            <option value="en"><?php echo $languages['en']; ?></option>
+                            <option value="fr"><?php echo $languages['fr']; ?></option>
+                            <option value="so"><?php echo $languages['so']; ?></option>
+                            <option value="am"><?php echo $languages['am']; ?></option>
+                            <option value="bn"><?php echo $languages['bn']; ?></option>
+                            <option value="ti"><?php echo $languages['ti']; ?></option>
+                            <option value="es"><?php echo $languages['es']; ?></option>
+                            <option value="el"><?php echo $languages['el']; ?></option>
                             <option value="xx"><?php echo $this->lang->line('other'); ?></option>
 						</select>
 					</div>

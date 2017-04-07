@@ -68,17 +68,7 @@ class Backend extends CI_Controller {
         $view['available_providers'] = $this->providers_model->get_available_providers();
         $view['available_services'] = $this->services_model->get_available_services();
 	    $view['countries'] = $this->countries_model->getAllForList();
-	    foreach($view['countries'] as $key => $value) {
-		    if( $this->lang->line($this->countries_model->getTranslationNameByCode($key), FALSE)) {
-		    	$view['countries'][$key] = $this->lang->line($this->countries_model->getTranslationNameByCode($key));
-		    }
-	    }
 	    $view['languages'] = $this->languages_model->getAllForList();
-	    foreach($view['languages'] as $key => $value) {
-		    if( $this->lang->line($this->languages_model->getTranslationNameByCode($key), FALSE)) {
-		    	$view['languages'][$key] = $this->lang->line($this->languages_model->getTranslationNameByCode($key));
-		    }
-	    }
 
         $view['customers'] = $this->customers_model->get_batch();
         $user = $this->user_model->get_settings($this->session->userdata('user_id'));
@@ -131,19 +121,8 @@ class Backend extends CI_Controller {
         $view['customers'] = $this->customers_model->get_batch();
         $view['available_providers'] = $this->providers_model->get_available_providers();
         $view['available_services'] = $this->services_model->get_available_services();
-
 	    $view['countries'] = $this->countries_model->getAllForList();
-	    foreach($view['countries'] as $key => $value) {
-		    if( $this->lang->line($this->countries_model->getTranslationNameByCode($key), FALSE)) {
-                $view['countries'][$key] = $this->lang->line($this->countries_model->getTranslationNameByCode($key));
-		    }
-	    }
 	    $view['languages'] = $this->languages_model->getAllForList();
-	    foreach($view['languages'] as $key => $value) {
-		    if( $this->lang->line($this->languages_model->getTranslationNameByCode($key), FALSE)) {
-				$view['languages'][$key] = $this->lang->line($this->languages_model->getTranslationNameByCode($key));
-		    }
-	    }
 
 	    $this->set_user_data($view);
 
