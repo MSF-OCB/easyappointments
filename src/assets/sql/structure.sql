@@ -236,6 +236,7 @@ INSERT INTO `ea_countries` VALUES (null, 'CC', 'Cocos (Keeling) Islands');
 INSERT INTO `ea_countries` VALUES (null, 'CO', 'Colombia');
 INSERT INTO `ea_countries` VALUES (null, 'KM', 'Comoros');
 INSERT INTO `ea_countries` VALUES (null, 'CG', 'Congo');
+INSERT INTO `ea_countries` VALUES (null, 'CD', 'Democratic Republic of Congo');
 INSERT INTO `ea_countries` VALUES (null, 'CK', 'Cook Islands');
 INSERT INTO `ea_countries` VALUES (null, 'CR', 'Costa Rica');
 INSERT INTO `ea_countries` VALUES (null, 'HR', 'Croatia (Hrvatska)');

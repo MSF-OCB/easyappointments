@@ -339,7 +339,7 @@
                                                 <option value="IN"><?php echo $countries['IN']; ?></option>
                                                 <option value="IQ"><?php echo $countries['IQ']; ?></option>
                                                 <option value="IR"><?php echo $countries['IR']; ?></option>
-                                                <option value="IV"><?php echo $countries['IV']; ?></option>
+                                                <option value="IV"><?php echo $countries['CI']; ?></option>
                                                 <option value="LB"><?php echo $countries['LB']; ?></option>
                                                 <option value="LY"><?php echo $countries['LY']; ?></option>
                                                 <option value="ML"><?php echo $countries['ML']; ?></option>
