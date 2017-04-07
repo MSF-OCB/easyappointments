@@ -41,7 +41,7 @@ class Appointments extends CI_Controller {
 		// Common helpers
 		$this->load->helper('google_analytics');
 	}
-
+    
     /**
      * Default callback method of the application.
      *
@@ -51,9 +51,17 @@ class Appointments extends CI_Controller {
      *
      * @param string $appointment_hash The db appointment hash of an existing record.
      */
-    public function index($appointment_hash = '') {
-        if (!is_ea_installed()) {
-            redirect('installation/index');
+	 public function index($appointment_hash = '') {
+		 // This check can be moved at the constructor,
+		 // If the app is not installed the how controller should be not accessible
+		 if (!is_ea_installed()) {
+			 redirect('installation/index');
+			 return;
+		 }
+
+        if (!$this->session->userdata('username')) {
+	        $this->session->set_userdata('dest_url', site_url());
+	        redirect('user/login_frontend');
             return;
         }
 
