@@ -302,8 +302,15 @@ $lang['widowed'] = 'Widowed';
 $lang['non_specified'] = 'Non specified';
 //$lang[''] = '';
 
-
 $lang['status'] = 'Status';
 $lang['date'] = 'Date';
 $lang['country'] = 'Country';
 $lang['filters'] = 'Filters';
+
+// JUST EXAMPLES! how you can add translation to either Country or Language name, by default it is loaded from the db table.
+// It is important to write it with small letters !
+// $lang['country_code_af'] = 'Afghanistan specific name';
+// $lang['country_code_fr'] = 'France specific name';
+// $lang['language_code_en'] = 'English specific name';
+// $lang['language_code_ar'] = 'Arabic specific name';
+

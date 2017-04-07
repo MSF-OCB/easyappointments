@@ -56,6 +56,8 @@ class Backend extends CI_Controller {
         $this->load->model('roles_model');
         $this->load->model('user_model');
         $this->load->model('secretaries_model');
+        $this->load->model('countries_model');
+	    $this->load->model('languages_model');
 
         $view['base_url'] = $this->config->item('base_url');
         $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
@@ -65,6 +67,19 @@ class Backend extends CI_Controller {
         $view['company_name'] = $this->settings_model->get_setting('company_name');
         $view['available_providers'] = $this->providers_model->get_available_providers();
         $view['available_services'] = $this->services_model->get_available_services();
+	    $view['countries'] = $this->countries_model->getAllForList();
+	    foreach($view['countries'] as $key => $value) {
+		    if( $this->lang->line($this->countries_model->getTranslationNameByCode($key), FALSE)) {
+		    	$view['countries'][$key] = $this->lang->line($this->countries_model->getTranslationNameByCode($key));
+		    }
+	    }
+	    $view['languages'] = $this->languages_model->getAllForList();
+	    foreach($view['languages'] as $key => $value) {
+		    if( $this->lang->line($this->languages_model->getTranslationNameByCode($key), FALSE)) {
+		    	$view['languages'][$key] = $this->lang->line($this->languages_model->getTranslationNameByCode($key));
+		    }
+	    }
+
         $view['customers'] = $this->customers_model->get_batch();
         $user = $this->user_model->get_settings($this->session->userdata('user_id'));
         $view['calendar_view'] = $user['settings']['calendar_view'];
@@ -105,6 +120,8 @@ class Backend extends CI_Controller {
         $this->load->model('services_model');
         $this->load->model('settings_model');
         $this->load->model('user_model');
+        $this->load->model('countries_model');
+        $this->load->model('languages_model');
 
         $view['base_url'] = $this->config->item('base_url');
         $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
@@ -114,7 +131,21 @@ class Backend extends CI_Controller {
         $view['customers'] = $this->customers_model->get_batch();
         $view['available_providers'] = $this->providers_model->get_available_providers();
         $view['available_services'] = $this->services_model->get_available_services();
-        $this->set_user_data($view);
+
+	    $view['countries'] = $this->countries_model->getAllForList();
+	    foreach($view['countries'] as $key => $value) {
+		    if( $this->lang->line($this->countries_model->getTranslationNameByCode($key), FALSE)) {
+                $view['countries'][$key] = $this->lang->line($this->countries_model->getTranslationNameByCode($key));
+		    }
+	    }
+	    $view['languages'] = $this->languages_model->getAllForList();
+	    foreach($view['languages'] as $key => $value) {
+		    if( $this->lang->line($this->languages_model->getTranslationNameByCode($key), FALSE)) {
+				$view['languages'][$key] = $this->lang->line($this->languages_model->getTranslationNameByCode($key));
+		    }
+	    }
+
+	    $this->set_user_data($view);
 
         $this->load->view('backend/header', $view);
         $this->load->view('backend/customers', $view);
