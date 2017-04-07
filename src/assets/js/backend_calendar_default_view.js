@@ -860,7 +860,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                     data: appointment // Store appointment data for later use.
                 };
                 if(appointment.no_show == 1) {
-                    event.backgroundColor = '#f9bdbb';
+                    event.backgroundColor = '#d31e18';
                 }
 
                 calendarEvents.push(event);
