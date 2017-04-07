@@ -100,33 +100,68 @@
                         <label for="last-name"><?php echo $this->lang->line('last_name'); ?> *</label>
                         <input type="text" id="last-name" class="form-control required" />
                     </div>
-
+                    
                     <div class="form-group">
-                        <label for="email"><?php echo $this->lang->line('email'); ?> *</label>
-                        <input type="text" id="email" class="form-control required" />
+                        <label for="gender"><?php echo $this->lang->line('gender'); ?> *</label>
+                            <select id="gender" class="required form-control">
+                                      <option value="M"><?php echo $this->lang->line('male'); ?></option>
+                                      <option value="F"><?php echo $this->lang->line('female'); ?></option>
+                                      <option value="O"><?php echo $this->lang->line('other'); ?></option>
+                            </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="phone-number"><?php echo $this->lang->line('phone_number'); ?> *</label>
-                        <input type="text" id="phone-number" class="form-control required" />
+                        <label for="email"><?php echo $this->lang->line('email'); ?></label>
+                        <input type="text" id="email" class="form-control" />
                     </div>
 
                     <div class="form-group">
-                        <label for="address"><?php echo $this->lang->line('address'); ?></label>
-                        <input type="text" id="address" class="form-control" />
+                        <label for="phone-number-1"><?php echo $this->lang->line('phone_number_1'); ?> *</label>
+                        <input type="text" id="phone-number-1" class="form-control required" />
                     </div>
 
                     <div class="form-group">
-                        <label for="city"><?php echo $this->lang->line('city'); ?></label>
-                        <input type="text" id="city" class="form-control" />
+                        <label for="phone-number-2"><?php echo $this->lang->line('phone_number_2'); ?></label>
+                        <input type="text" id="phone-number-2" class="form-control" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address"><?php echo $this->lang->line('address'); ?> *</label>
+                        <input type="text" id="address" class="form-control required" />
                     </div>
 
                     <div class="form-group">
-                        <label for="zip-code"><?php echo $this->lang->line('zip_code'); ?></label>
-                        <input type="text" id="zip-code" class="form-control" />
+                        <label for="country"><?php echo $this->lang->line('country_origin'); ?> *</label>
+                            <select id="country" class="required form-control">
+	                            <?php foreach ($countries as $code => $name) { ?>
+                                <option value="<?php echo $code; ?>"><?php echo $name; ?></option>
+	                            <?php } ?>
+                                <option value=""><?php echo $this->lang->line('other'); ?></option>
+                            </select>
                     </div>
 
                     <div class="form-group">
+                        <label for="marital-status"><?php echo $this->lang->line('marital_status'); ?></label>
+                            <select id="marital-status" class="required form-control">
+                                      <option value="Single"><?php echo $this->lang->line('single'); ?></option>
+                                      <option value="Married"><?php echo $this->lang->line('married'); ?></option>
+                                      <option value="Divorced"><?php echo $this->lang->line('divorced'); ?></option>
+                                      <option value="Widowed"><?php echo $this->lang->line('widowed'); ?></option>
+                                      <option value="Widowed"><?php echo $this->lang->line('non_specified'); ?></option>
+                            </select>
+                    </div>
+
+					<div class="form-group">
+						<label for="language"><?php echo $this->lang->line('language'); ?> *</label> 
+						<select id="language" class="required form-control">
+							<?php foreach ($languages as $code => $name) { ?>
+                                <option value="<?php echo $code; ?>"><?php echo $name; ?></option>
+							<?php } ?>
+                            <option value="xx"><?php echo $this->lang->line('other'); ?></option>
+						</select>
+					</div>
+
+					<div class="form-group">
                         <label for="notes"><?php echo $this->lang->line('notes'); ?></label>
                         <textarea id="notes" rows="4" class="form-control"></textarea>
                     </div>

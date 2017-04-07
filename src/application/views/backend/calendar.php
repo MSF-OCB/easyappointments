@@ -229,6 +229,7 @@
                                     <textarea id="appointment-notes" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
+                            <input type="hidden" id="no-show" value="0">
                         </fieldset>
 
                         <fieldset class="container">
@@ -267,45 +268,89 @@
                                             <input type="text" id="last-name" class="required form-control" />
                                         </div>
                                     </div>
-
+                                    
                                     <div class="form-group">
-                                        <label for="email" class="control-label col-sm-2">
-                                            <?php echo $this->lang->line('email'); ?>*</label>
+                                        <label for="gender" class="control-label col-sm-2">
+                                            <?php echo $this->lang->line('gender'); ?>*</label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="email" class="required form-control" />
+                                            <select id="gender" class="required form-control">
+                                                <option value="M"><?php echo $this->lang->line('male'); ?></option>
+                                                <option value="F"><?php echo $this->lang->line('female'); ?></option>
+                                                <option value="O"><?php echo $this->lang->line('other'); ?></option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="phone-number" class="control-label col-sm-3">
-                                            <?php echo $this->lang->line('phone_number'); ?>*</label>
+                                        <label for="email" class="control-label col-sm-2">
+                                            <?php echo $this->lang->line('email'); ?></label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="phone-number" class="required form-control" />
+                                            <input type="text" id="email" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="phone-number-1" class="control-label col-sm-3">
+                                            <?php echo $this->lang->line('phone_number_1'); ?>*</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" id="phone-number-1" class="required form-control" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="phone-number-2" class="control-label col-sm-3">
+                                            <?php echo $this->lang->line('phone_number_2'); ?></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" id="phone-number-2" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="address" class="control-label col-sm-3">
-                                            <?php echo $this->lang->line('address'); ?></label>
+                                            <?php echo $this->lang->line('address'); ?>*</label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="address" class="form-control" />
+                                            <input type="text" id="address" class="required form-control" />
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="city" class="control-label col-sm-3">
-                                            <?php echo $this->lang->line('city'); ?></label>
+                                        <label for="country" class="control-label col-sm-3">
+                                            <?php echo $this->lang->line('country_origin'); ?>*</label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="city" class="form-control" />
+                                            <select id="country" class="required form-control">
+	                                            <?php foreach ($countries as $code => $name) { ?>
+                                                <option value="<?php echo $code; ?>"><?php echo $name; ?></option>
+	                                            <?php } ?>
+                                                <option value=""><?php echo $this->lang->line('other'); ?></option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="zip-code" class="control-label col-sm-3">
-                                            <?php echo $this->lang->line('zip_code'); ?></label>
+                                        <label for="marital-status" class="control-label col-sm-3">
+                                            <?php echo $this->lang->line('marital_status'); ?></label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="zip-code" class="form-control" />
+                                            <select id="marital-status" class="required form-control">
+                                              <option value="Single"><?php echo $this->lang->line('single'); ?></option>
+                                              <option value="Married"><?php echo $this->lang->line('married'); ?></option>
+                                              <option value="Divorced"><?php echo $this->lang->line('divorced'); ?></option>
+                                              <option value="Widowed"><?php echo $this->lang->line('widowed'); ?></option>
+                                              <option value="Widowed"><?php echo $this->lang->line('non_specified'); ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="language" class="control-label col-sm-3">
+                                            <?php echo $this->lang->line('language'); ?>*</label>
+                                        <div class="col-sm-8">
+                                            <select id="language" class="required form-control">
+	                                            <?php foreach ($languages as $code => $name) { ?>
+                                                    <option value="<?php echo $code; ?>"><?php echo $name; ?></option>
+	                                            <?php } ?>
+                                                <option value="xx"><?php echo $this->lang->line('other'); ?></option>
+                                            </select>
                                         </div>
                                     </div>
 

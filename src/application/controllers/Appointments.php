@@ -41,7 +41,7 @@ class Appointments extends CI_Controller {
 		// Common helpers
 		$this->load->helper('google_analytics');
 	}
-
+    
     /**
      * Default callback method of the application.
      *
@@ -51,9 +51,17 @@ class Appointments extends CI_Controller {
      *
      * @param string $appointment_hash The db appointment hash of an existing record.
      */
-    public function index($appointment_hash = '') {
-        if (!is_ea_installed()) {
-            redirect('installation/index');
+	 public function index($appointment_hash = '') {
+		 // This check can be moved at the constructor,
+		 // If the app is not installed the how controller should be not accessible
+		 if (!is_ea_installed()) {
+			 redirect('installation/index');
+			 return;
+		 }
+
+        if (!$this->session->userdata('username')) {
+	        $this->session->set_userdata('dest_url', site_url());
+	        redirect('user/login_frontend');
             return;
         }
 
@@ -62,12 +70,26 @@ class Appointments extends CI_Controller {
         $this->load->model('services_model');
         $this->load->model('customers_model');
         $this->load->model('settings_model');
+        $this->load->model('countries_model');
+        $this->load->model('languages_model');
 
         try {
             $available_services  = $this->services_model->get_available_services();
             $available_providers = $this->providers_model->get_available_providers();
             $company_name        = $this->settings_model->get_setting('company_name');
             $date_format         = $this->settings_model->get_setting('date_format');
+	        $countries           = $this->countries_model->getAllForList();
+	        foreach($countries as $key => $value) {
+		        if( $this->lang->line($this->countries_model->getTranslationNameByCode($key), FALSE)) {
+			        $countries[$key] = $this->lang->line($this->countries_model->getTranslationNameByCode($key));
+		        }
+	        }
+	        $languages = $this->languages_model->getAllForList();
+	        foreach($languages as $key => $value) {
+		        if( $this->lang->line($this->languages_model->getTranslationNameByCode($key), FALSE)) {
+			        $languages[$key] = $this->lang->line($this->languages_model->getTranslationNameByCode($key));
+		        }
+	        }
 
 			// Remove the data that are not needed inside the $available_providers array.
 			foreach ($available_providers as $index=>$provider) {
@@ -122,7 +144,9 @@ class Appointments extends CI_Controller {
 				'date_format'           => $date_format,
                 'appointment_data'      => $appointment,
                 'provider_data'         => $provider,
-                'customer_data'         => $customer
+                'customer_data'         => $customer,
+                'countries'             => $countries,
+                'languages'             => $languages
             );
         } catch(Exception $exc) {
             $view['exceptions'][] = $exc;
@@ -381,6 +405,7 @@ class Appointments extends CI_Controller {
 			$appointment['is_unavailable'] = (int)$appointment['is_unavailable']; // needs to be type casted
             $appointment['id'] = $this->appointments_model->add($appointment);
             $appointment['hash'] = $this->appointments_model->get_value('hash', $appointment['id']);
+	        $appointment['no_show'] = $this->appointments_model->get_value('no_show', $appointment['id']);
 
             $provider = $this->providers_model->get_row($appointment['id_users_provider']);
             $service = $this->services_model->get_row($appointment['id_services']);
@@ -450,9 +475,11 @@ class Appointments extends CI_Controller {
 						FILTER_VALIDATE_BOOLEAN);
 
 				if ($send_customer === TRUE) {
+                                    if($customer['email'] != '') {   //Allow empty customer email
 					$email->sendAppointmentDetails($appointment, $provider,
 							$service, $customer,$company_settings, $customer_title,
 							$customer_message, $customer_link, new Email($customer['email']));
+                                    }
 				}
 
 				$send_provider = filter_var($this->providers_model ->get_setting('notifications', $provider['id']),

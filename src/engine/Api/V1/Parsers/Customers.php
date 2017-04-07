@@ -30,10 +30,13 @@ class Customers implements ParsersInterface {
             'firstName' => $response['first_name'],
             'lastName' => $response['last_name'],
             'email' => $response['email'],
-            'phone' => $response['phone_number'],
+            'phone1' => $response['phone_number_1'],
+            'phone2' => $response['phone_number_2'],
             'address' => $response['address'],
-            'city' => $response['city'],
-            'zip' => $response['zip_code'],
+            'country' => $response['country_origin'],
+            'maritalSt' => $response['marital_status'],
+            'gender' => $response['gender'],
+            'language' => $response['language'],
             'notes' => $response['notes']
         ];
 
@@ -65,20 +68,32 @@ class Customers implements ParsersInterface {
             $decodedRequest['email'] = $request['email']; 
         }
 
-        if (!empty($request['phone'])) {
-            $decodedRequest['phone_number'] = $request['phone']; 
+        if (!empty($request['phone1'])) {
+            $decodedRequest['phone_number_1'] = $request['phone1']; 
+        }
+
+        if (!empty($request['phone2'])) {
+            $decodedRequest['phone_number_2'] = $request['phone2']; 
         }
 
         if (!empty($request['address'])) {
             $decodedRequest['address'] = $request['address']; 
         }
 
-        if (!empty($request['city'])) {
-            $decodedRequest['city'] = $request['city']; 
+        if (!empty($request['country'])) {
+            $decodedRequest['country_origin'] = $request['country']; 
         }
 
-        if (!empty($request['zip'])) {
-            $decodedRequest['zip_code'] = $request['zip']; 
+        if (!empty($request['maritalSt'])) {
+            $decodedRequest['marital_status'] = $request['maritalSt']; 
+        }
+        
+        if (!empty($request['gender'])) {
+            $decodedRequest['gender'] = $request['gender']; 
+        }
+        
+        if (!empty($request['language'])) {
+            $decodedRequest['language'] = $request['language']; 
         }
 
         if (!empty($request['notes'])) {

@@ -61,6 +61,24 @@ class User extends CI_Controller {
         $view['company_name'] = $this->settings_model->get_setting('company_name');
         $this->load->view('user/login', $view);
     }
+    
+    /**
+     * Display the login page fro frontend
+     */
+    public function login_frontend() {
+    	$this->load->model('settings_model');
+    
+    	$view['base_url'] = $this->config->item('base_url');
+
+	    // Default is our site root /
+	    $view['dest_url'] = site_url();
+	    if($this->session->userdata('dest_url')) {
+		    $view['dest_url'] = $this->session->userdata('dest_url');
+	    }
+
+    	$view['company_name'] = $this->settings_model->get_setting('company_name');
+    	$this->load->view('user/login_frontend', $view);
+    }
 
     /**
      * Display the logout page.

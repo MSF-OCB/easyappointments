@@ -361,11 +361,24 @@ window.FrontendBook = window.FrontendBook || {};
             }
 
             // Validate email address.
-            if (!GeneralFunctions.validateEmail($('#email').val())) {
-                $('#email').parents('.form-group').addClass('has-error');
-                // $('#email').css('border', '2px solid red');
-                throw EALang['invalid_email'];
+            if($('#email').val() != '') { //Added this to allow not providing it
+                if (!GeneralFunctions.validateEmail($('#email').val())) {
+                    $('#email').css('border', '2px solid red');
+                    throw EALang['invalid_email'];
+                }
             }
+          
+            //Validate phone number
+            var phone = $('#phone-number-1').val();
+            if (!(!isNaN(parseFloat(phone)) && isFinite(phone))) {
+                throw EALang['invalid_phone_number_1'];
+            }    
+            var phone = $('#phone-number-2').val();
+            if (phone != '') {
+                if(!(!isNaN(parseFloat(phone)) && isFinite(phone))) {
+                    throw EALang['invalid_phone_number_2'];
+                }
+            } 
 
             return true;
         } catch(exc) {
@@ -413,24 +426,35 @@ window.FrontendBook = window.FrontendBook || {};
         // Customer Details
         var firstName = GeneralFunctions.escapeHtml($('#first-name').val());
         var lastName = GeneralFunctions.escapeHtml($('#last-name').val());
-        var phoneNumber = GeneralFunctions.escapeHtml($('#phone-number').val());
+        var gender = GeneralFunctions.escapeHtml($('#gender').val());
+        var phoneNumber1 = GeneralFunctions.escapeHtml($('#phone-number-1').val());
+        var phoneNumber2 = GeneralFunctions.escapeHtml($('#phone-number-2').val());
         var email = GeneralFunctions.escapeHtml($('#email').val());
         var address = GeneralFunctions.escapeHtml($('#address').val());
-        var city = GeneralFunctions.escapeHtml($('#city').val());
-        var zipCode = GeneralFunctions.escapeHtml($('#zip-code').val());
+        var country = GeneralFunctions.escapeHtml($('#country').val());
+        var countryName = GeneralFunctions.escapeHtml($('#country option:selected').text());
+        var maritalSt = GeneralFunctions.escapeHtml($('#marital-status').val());
+        var language = GeneralFunctions.escapeHtml($('#language').val());
+        var languageName = GeneralFunctions.escapeHtml($('#language option:selected').text());
 
         html =
             '<h4>' + firstName + ' ' + lastName + '</h4>' +
             '<p>' +
-                EALang['phone'] + ': ' + phoneNumber +
+                EALang['gender'] + ': ' + gender +
+                '<br/>' +
+                EALang['phone_number_1'] + ': ' + phoneNumber1 +
+                '<br/>' +
+                EALang['phone_number_2'] + ': ' + phoneNumber2 +
                 '<br/>' +
                 EALang['email'] + ': ' + email +
                 '<br/>' +
                 EALang['address'] + ': ' + address +
                 '<br/>' +
-                EALang['city'] + ': ' + city +
+                EALang['country_origin'] + ': ' + countryName +
                 '<br/>' +
-                EALang['zip_code'] + ': ' + zipCode +
+                EALang['marital_status'] + ': ' + maritalSt +
+                '<br/>' +
+                EALang['language'] + ': ' + languageName +
             '</p>';
 
         $('#customer-details').html(html);
@@ -442,11 +466,14 @@ window.FrontendBook = window.FrontendBook || {};
         postData['customer'] = {
             last_name: $('#last-name').val(),
             first_name: $('#first-name').val(),
+            gender: $('#gender').val(),
             email: $('#email').val(),
-            phone_number: $('#phone-number').val(),
+            phone_number_1: $('#phone-number-1').val(),
+            phone_number_2: $('#phone-number-val2').val(),
             address: $('#address').val(),
-            city: $('#city').val(),
-            zip_code: $('#zip-code').val()
+            country_origin: $('#country').val(),
+            marital_status: $('#marital-status').val(),
+            language: $('#language').val()
         };
 
         postData['appointment'] = {
@@ -525,11 +552,14 @@ window.FrontendBook = window.FrontendBook || {};
             // Apply Customer's Data
             $('#last-name').val(customer['last_name']);
             $('#first-name').val(customer['first_name']);
+            $('#gender').val(customer['gender']);
             $('#email').val(customer['email']);
-            $('#phone-number').val(customer['phone_number']);
+            $('#phone-number-1').val(customer['phone_number_1']);
+            $('#phone-number-2').val(customer['phone_number_2']);
             $('#address').val(customer['address']);
-            $('#city').val(customer['city']);
-            $('#zip-code').val(customer['zip_code']);
+            $('#country').val(customer['country_origin']);
+            $('#marital-status').val(customer['marital_status']);
+            $('#language').val(customer['language']);
             var appointmentNotes = (appointment['notes'] !== null)
                     ? appointment['notes'] : '';
             $('#notes').val(appointmentNotes);

@@ -278,11 +278,14 @@ window.BackendCalendarTableView = window.BackendCalendarTableView || {};
                 $dialog.find('#customer-id').val(appointment['id_users_customer']);
                 $dialog.find('#first-name').val(customer['first_name']);
                 $dialog.find('#last-name').val(customer['last_name']);
+                $dialog.find('#gender').val(customer['gender']);
                 $dialog.find('#email').val(customer['email']);
-                $dialog.find('#phone-number').val(customer['phone_number']);
+                $dialog.find('#phone-number-1').val(customer['phone_number_1']);
+                $dialog.find('#phone-number-2').val(customer['phone_number_2']);
                 $dialog.find('#address').val(customer['address']);
-                $dialog.find('#city').val(customer['city']);
-                $dialog.find('#zip-code').val(customer['zip_code']);
+                $dialog.find('#country').val(customer['country_origin']);
+                $dialog.find('#marital-status').val(customer['marital_status']);
+                $dialog.find('#language').val(customer['language']);
                 $dialog.find('#appointment-notes').val(appointment['notes']);
                 $dialog.find('#customer-notes').val(customer['notes']);
             } else {

@@ -74,6 +74,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                 $dialog.find('#appointment-id').val(appointment['id']);
                 $dialog.find('#select-service').val(appointment['id_services']).trigger('change');
                 $dialog.find('#select-provider').val(appointment['id_users_provider']);
+                $dialog.find('#no-show').val(appointment['no_show']);
 
                 // Set the start and end datetime of the appointment.
                 var startDatetime = Date.parseExact(appointment['start_datetime'],
@@ -88,11 +89,14 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                 $dialog.find('#customer-id').val(appointment['id_users_customer']);
                 $dialog.find('#first-name').val(customer['first_name']);
                 $dialog.find('#last-name').val(customer['last_name']);
+                $dialog.find('#gender').val(customer['gender']);
                 $dialog.find('#email').val(customer['email']);
-                $dialog.find('#phone-number').val(customer['phone_number']);
+                $dialog.find('#phone-number-1').val(customer['phone_number_1']);
+                $dialog.find('#phone-number-2').val(customer['phone_number_2']);
                 $dialog.find('#address').val(customer['address']);
-                $dialog.find('#city').val(customer['city']);
-                $dialog.find('#zip-code').val(customer['zip_code']);
+                $dialog.find('#country').val(customer['country_origin']);
+                $dialog.find('#marital-status').val(customer['marital_status']);
+                $dialog.find('#language').val(customer['language']);
                 $dialog.find('#appointment-notes').val(appointment['notes']);
                 $dialog.find('#customer-notes').val(customer['notes']);
             } else {
@@ -246,6 +250,85 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
         return (result > 500) ? result : 500; // Minimum height is 500px
     }
 
+
+    function _checkNoShow(appointment, no_show_val, successCallback) {
+        // Prepare appointment data.
+        appointment = GeneralFunctions.clone(appointment);
+
+        // Must delete the following because only appointment data should be provided to the ajax call.
+        delete appointment['customer'];
+        delete appointment['provider'];
+        delete appointment['service'];
+
+        appointment['no_show'] = no_show_val;
+
+        var postUrl  = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_save_appointment';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+            appointment_data: JSON.stringify(appointment)
+        };
+
+        var localSuccessCallback = function (response) {
+            var undoFunction = function () {
+                _checkNoShow(appointment, 0, successCallback)
+            };
+
+            Backend.displayNotification(EALang['appointment_updated'], [
+                {
+                    'label'   : 'Undo',
+                    'function': undoFunction
+                }
+            ]);
+
+            if (successCallback !== undefined) {
+                successCallback(response);
+            }
+
+            $('#select-filter-item').trigger('change');
+
+            // Set timer to hide the notification
+            if (GlobalVariables.NOTIFICATION_BLIND_TIMER) {
+                clearTimeout(GlobalVariables.NOTIFICATION_BLIND_TIMER);
+                GlobalVariables.NOTIFICATION_BLIND_TIMER = undefined;
+            }
+            GlobalVariables.NOTIFICATION_BLIND_TIMER = setTimeout(function () {
+                $('#notification').hide('blind');
+            }, 5000)
+        };
+
+        $.post(postUrl, postData, function(response) {
+            $('#notification').hide('blind');
+
+            localSuccessCallback && localSuccessCallback(response);
+        }, 'json').fail(GeneralFunctions.ajaxFailureHandler);
+
+    }
+
+    function _setNoShowEvent(event, isNoShow) {
+        var eventData = event.data;
+        if (!isNoShow) {
+            // When not shown
+            $('#no-show-btn')
+                .unbind('mouseenter mouseleave')
+                .off('click')
+                .click(function () {
+                    _checkNoShow(eventData, 1, function successCallback() {
+                        $('.popover').remove();
+                    }.bind(this));
+                });
+        } else {
+            $('#no-show-btn')
+                .unbind('mouseenter mouseleave')
+                .off('click')
+                .click(function () {
+                    _checkNoShow(eventData, 0, function successCallback() {
+                        $('.popover').remove();
+                    }.bind(this));
+                });
+        }
+    }
+
+
     /**
      * Calendar Event "Click" Callback
      *
@@ -263,6 +346,8 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
         // need to use different selectors to reach the parent element.
         var $parent = $(jsEvent.target.offsetParent);
         var $altParent = $(jsEvent.target).parents().eq(1);
+        var $tmpTime = new Date();
+        var no_show = ($tmpTime.getTime() > event.end.getTime());
 
         if ($parent.hasClass('fc-unavailable') || $altParent.hasClass('fc-unavailable')) {
             displayEdit = (($parent.hasClass('fc-custom') || $altParent.hasClass('fc-custom'))
@@ -291,7 +376,7 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         + notes
                         + '<hr>' +
                     '<center>' +
-                        '<button class="edit-popover btn btn-primary ' + displayEdit + '">' + EALang['edit'] + '</button>' +
+                    '<button class="edit-popover btn btn-primary ' + displayEdit + '">' + EALang['edit'] + '</button>' +
                         '<button class="delete-popover btn btn-danger ' + displayDelete + '">' + EALang['delete'] + '</button>' +
                         '<button class="close-popover btn btn-default" data-po=' + jsEvent.target + '>' + EALang['close'] + '</button>' +
                     '</center>';
@@ -324,6 +409,11 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                         + event.data['customer']['last_name']
                         + '<hr>' +
                     '<center>' +
+                    (no_show !== false && event.data.hasOwnProperty('no_show') ? (
+                        '<button style="margin-bottom : 5px;" id="no-show-btn" class="btn '+
+                        (event.data['no_show'] != 1 ?  'btn-danger' :'btn-success')+
+                        '">' + (event.data['no_show'] == 1 ?  EALang['shown'] :EALang['no_show'] )+ '</button><br>'
+                    ) : '' ) +
                         '<button class="edit-popover btn btn-primary ' + displayEdit + '">' + EALang['edit'] + '</button>' +
                         '<button class="delete-popover btn btn-danger ' + displayDelete + '">' + EALang['delete'] + '</button>' +
                         '<button class="close-popover btn btn-default" data-po=' + jsEvent.target + '>' + EALang['close'] + '</button>' +
@@ -346,6 +436,19 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
         if ($('.popover').length > 0) {
             if ($('.popover').position().top < 200) $('.popover').css('top', '200px');
         }
+
+        if(event.data !== undefined && event.data.hasOwnProperty('no_show')) {
+            if (event.data['no_show'] == 1) {
+                $(jsEvent.target).on('shown.bs.popover', function () {
+                    _setNoShowEvent(event, true);
+                });
+            } else {
+                $(jsEvent.target).on('shown.bs.popover', function () {
+                    _setNoShowEvent(event, false);
+                });
+            }
+        }
+
     }
 
     /**
@@ -756,6 +859,9 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                     allDay: false,
                     data: appointment // Store appointment data for later use.
                 };
+                if(appointment.no_show == 1) {
+                    event.backgroundColor = '#f9bdbb';
+                }
 
                 calendarEvents.push(event);
             });
@@ -1156,16 +1262,19 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
             $dialog.find('#end-datetime').val(GeneralFunctions.formatDate(endDatetime, GlobalVariables.dateFormat, true));
 
             var customer = appointment['customer'];
-            $dialog.find('#customer-id').val(appointment['id_users_customer']);
-            $dialog.find('#first-name').val(customer['first_name']);
-            $dialog.find('#last-name').val(customer['last_name']);
-            $dialog.find('#email').val(customer['email']);
-            $dialog.find('#phone-number').val(customer['phone_number']);
-            $dialog.find('#address').val(customer['address']);
-            $dialog.find('#city').val(customer['city']);
-            $dialog.find('#zip-code').val(customer['zip_code']);
-            $dialog.find('#appointment-notes').val(appointment['notes']);
-            $dialog.find('#customer-notes').val(customer['notes']);
+                $dialog.find('#customer-id').val(appointment['id_users_customer']);
+                $dialog.find('#first-name').val(customer['first_name']);
+                $dialog.find('#last-name').val(customer['last_name']);
+                $dialog.find('#gender').val(customer['gender']);
+                $dialog.find('#email').val(customer['email']);
+                $dialog.find('#phone-number-1').val(customer['phone_number_1']);
+                $dialog.find('#phone-number-2').val(customer['phone_number_2']);
+                $dialog.find('#address').val(customer['address']);
+                $dialog.find('#country').val(customer['country_origin']);
+                $dialog.find('#marital-status').val(customer['marital_status']);
+                $dialog.find('#language').val(customer['language']);
+                $dialog.find('#appointment-notes').val(appointment['notes']);
+                $dialog.find('#customer-notes').val(customer['notes']);
 
             $dialog.modal('show');
         }

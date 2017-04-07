@@ -19,6 +19,12 @@ $lang['phone_number'] = 'Phone Number';
 $lang['address'] = 'Address';
 $lang['city'] = 'City';
 $lang['zip_code'] = 'Zip Code';
+$lang['country_origin'] = 'Country of origin';
+$lang['marital_status'] = 'Marital status';
+$lang['gender'] = 'Gender';
+$lang['phone_number_1'] = 'Primary phone number';
+$lang['phone_number_2'] = 'Secondary phone number';
+$lang['language'] = 'Language';
 $lang['notes'] = 'Notes';
 $lang['fields_are_required'] = 'Fields with * are required!';
 $lang['step_four_title'] = 'Confirm Appointment';
@@ -110,7 +116,7 @@ $lang['start_date_before_end_error'] = 'Start date value is bigger than end date
 $lang['invalid_email'] = 'Invalid email address!';
 $lang['invalid_phone_number_1'] = 'Invalid primary phone number!';
 $lang['invalid_phone_number_2'] = 'Invalid secondary phone number!';
-$lang['customers'] = 'Patients';
+$lang['customers'] = 'Customers';
 $lang['details'] = 'Details';
 $lang['no_records_found'] = 'No records found...';
 $lang['services'] = 'Services';
@@ -189,6 +195,8 @@ $lang['logout_success'] = 'You have been successfully logged out! Click on one o
 $lang['book_appointment_title'] = 'Book Appointment';
 $lang['backend_section'] = 'Backend Section';
 $lang['you_need_to_login'] = 'Welcome! You will need to login in order to view backend pages.';
+$lang['you_need_to_login_frontend'] = 'Welcome! to the MSF appointment booking tool!';
+$lang['current_language_selection'] = 'Current language selection';
 $lang['enter_username_here'] = 'Enter your username here ...';
 $lang['enter_password_here'] = 'Enter your password here ...';
 $lang['login'] = 'Login';
@@ -282,4 +290,29 @@ $lang['flexible'] = 'Flexible';
 $lang['fixed'] = 'Fixed';
 $lang['attendants_number'] = 'Attendants Number';
 $lang['go_back_to_backend'] = 'Back to backend login';
+$lang['reports'] = 'Reports';
+$lang['no_show'] = 'No Show';
+$lang['shown'] = 'Seen';
+$lang['male'] = 'Male';
+$lang['female'] = 'Female';
+$lang['other'] = 'Other';
+$lang['single'] = 'Single';
+$lang['married'] = 'Married';
+$lang['divorced'] = 'Divorced';
+$lang['widowed'] = 'Widowed';
+$lang['non_specified'] = 'Non specified';
+//$lang[''] = '';
+
+$lang['status'] = 'Status';
+$lang['date'] = 'Date';
+$lang['country'] = 'Country';
+$lang['filters'] = 'Filters';
+
+// JUST EXAMPLES! how you can add translation to either Country or Language name, by default it is loaded from the db table.
+// It is important to write it with small letters !
+// $lang['country_code_af'] = 'Afghanistan specific name';
+// $lang['country_code_fr'] = 'France specific name';
+// $lang['language_code_en'] = 'English specific name';
+// $lang['language_code_ar'] = 'Arabic specific name';
+
 

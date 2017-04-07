@@ -311,10 +311,12 @@ class Backend_api extends CI_Controller {
 
                 $send_customer = $this->settings_model->get_setting('customer_notifications');
 
-				if ((bool)$send_customer === TRUE) {
-                    $email->sendAppointmentDetails($appointment, $provider,
-                            $service, $customer, $company_settings, $customer_title,
-                            $customer_message, $customer_link, new Email($customer['email']));
+		if ((bool)$send_customer === TRUE) {
+                    if($customer['email'] != '') {   //Allow empty customer email  
+                        $email->sendAppointmentDetails($appointment, $provider,
+                                $service, $customer, $company_settings, $customer_title,
+                                $customer_message, $customer_link, new Email($customer['email']));
+                    }
                 }
 
                 if ($send_provider == TRUE) {
@@ -415,10 +417,12 @@ class Backend_api extends CI_Controller {
 
                 $send_customer = $this->settings_model->get_setting('customer_notifications');
 
-				if ((bool)$send_customer === TRUE) {
-                    $email->sendDeleteAppointment($appointment, $provider,
-                            $service, $customer, $company_settings, new Email($customer['email']),
-                            new Text($_POST['delete_reason']));
+		if ((bool)$send_customer === TRUE) {
+                    if($customer['email'] != '') {   //Allow empty customer email         
+                        $email->sendDeleteAppointment($appointment, $provider,
+                                $service, $customer, $company_settings, new Email($customer['email']),
+                                new Text($_POST['delete_reason']));
+                    }
                 }
             } catch(Exception $exc) {
                 $warnings[] = exceptionToJavaScript($exc);
@@ -498,11 +502,14 @@ class Backend_api extends CI_Controller {
 	    			'(first_name LIKE upper("%' . $key . '%") OR ' .
 	    			'last_name  LIKE upper("%' . $key . '%") OR ' .
 	    			'email LIKE upper("%' . $key . '%") OR ' .
-	    			'phone_number LIKE upper("%' . $key . '%") OR ' .
+	    			'phone_number_1 LIKE upper("%' . $key . '%") OR ' .
+                                'phone_number_2 LIKE upper("%' . $key . '%") OR ' .
 	    			'address LIKE upper("%' . $key . '%") OR ' .
-	    			'city LIKE upper("%' . $key . '%") OR ' .
-	    			'zip_code LIKE upper("%' . $key . '%") OR ' .
-                    'notes LIKE upper("%' . $key . '%"))';
+	    			'country_origin LIKE upper("%' . $key . '%") OR ' .
+	    			'gender LIKE upper("%' . $key . '%") OR ' .
+                                'marital_status LIKE upper("%' . $key . '%") OR ' .
+                                'language LIKE upper("%' . $key . '%") OR ' .
+                                'notes LIKE upper("%' . $key . '%"))';
 
             $customers = $this->customers_model->get_batch($where_clause);
 
