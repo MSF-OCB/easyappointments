@@ -79,17 +79,7 @@ class Appointments extends CI_Controller {
             $company_name        = $this->settings_model->get_setting('company_name');
             $date_format         = $this->settings_model->get_setting('date_format');
 	        $countries           = $this->countries_model->getAllForList();
-	        foreach($countries as $key => $value) {
-		        if( $this->lang->line($this->countries_model->getTranslationNameByCode($key), FALSE)) {
-			        $countries[$key] = $this->lang->line($this->countries_model->getTranslationNameByCode($key));
-		        }
-	        }
-	        $languages = $this->languages_model->getAllForList();
-	        foreach($languages as $key => $value) {
-		        if( $this->lang->line($this->languages_model->getTranslationNameByCode($key), FALSE)) {
-			        $languages[$key] = $this->lang->line($this->languages_model->getTranslationNameByCode($key));
-		        }
-	        }
+	        $languages           = $this->languages_model->getAllForList();
 
 			// Remove the data that are not needed inside the $available_providers array.
 			foreach ($available_providers as $index=>$provider) {
