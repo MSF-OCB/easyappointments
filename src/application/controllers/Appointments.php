@@ -62,12 +62,26 @@ class Appointments extends CI_Controller {
         $this->load->model('services_model');
         $this->load->model('customers_model');
         $this->load->model('settings_model');
+        $this->load->model('countries_model');
+        $this->load->model('languages_model');
 
         try {
             $available_services  = $this->services_model->get_available_services();
             $available_providers = $this->providers_model->get_available_providers();
             $company_name        = $this->settings_model->get_setting('company_name');
             $date_format         = $this->settings_model->get_setting('date_format');
+	        $countries           = $this->countries_model->getAllForList();
+	        foreach($countries as $key => $value) {
+		        if( $this->lang->line($this->countries_model->getTranslationNameByCode($key), FALSE)) {
+			        $countries[$key] = $this->lang->line($this->countries_model->getTranslationNameByCode($key));
+		        }
+	        }
+	        $languages = $this->languages_model->getAllForList();
+	        foreach($languages as $key => $value) {
+		        if( $this->lang->line($this->languages_model->getTranslationNameByCode($key), FALSE)) {
+			        $languages[$key] = $this->lang->line($this->languages_model->getTranslationNameByCode($key));
+		        }
+	        }
 
 			// Remove the data that are not needed inside the $available_providers array.
 			foreach ($available_providers as $index=>$provider) {
@@ -122,7 +136,9 @@ class Appointments extends CI_Controller {
 				'date_format'           => $date_format,
                 'appointment_data'      => $appointment,
                 'provider_data'         => $provider,
-                'customer_data'         => $customer
+                'customer_data'         => $customer,
+                'countries'             => $countries,
+                'languages'             => $languages
             );
         } catch(Exception $exc) {
             $view['exceptions'][] = $exc;

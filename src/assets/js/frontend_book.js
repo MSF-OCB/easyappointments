@@ -432,8 +432,10 @@ window.FrontendBook = window.FrontendBook || {};
         var email = GeneralFunctions.escapeHtml($('#email').val());
         var address = GeneralFunctions.escapeHtml($('#address').val());
         var country = GeneralFunctions.escapeHtml($('#country').val());
+        var countryName = GeneralFunctions.escapeHtml($('#country option:selected').text());
         var maritalSt = GeneralFunctions.escapeHtml($('#marital-status').val());
         var language = GeneralFunctions.escapeHtml($('#language').val());
+        var languageName = GeneralFunctions.escapeHtml($('#language option:selected').text());
 
         html =
             '<h4>' + firstName + ' ' + lastName + '</h4>' +
@@ -448,11 +450,11 @@ window.FrontendBook = window.FrontendBook || {};
                 '<br/>' +
                 EALang['address'] + ': ' + address +
                 '<br/>' +
-                EALang['country_origin'] + ': ' + country +
+                EALang['country_origin'] + ': ' + countryName +
                 '<br/>' +
                 EALang['marital_status'] + ': ' + maritalSt +
                 '<br/>' +
-                EALang['language'] + ': ' + language +
+                EALang['language'] + ': ' + languageName +
             '</p>';
 
         $('#customer-details').html(html);
