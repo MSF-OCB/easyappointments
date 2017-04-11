@@ -366,7 +366,7 @@
 
                                     <div class="form-group">
                                         <label for="marital-status" class="control-label col-sm-3">
-                                            <?php echo $this->lang->line('marital_status'); ?></label>
+                                            <?php echo $this->lang->line('marital_status'); ?>*</label>
                                         <div class="col-sm-8">
                                             <select id="marital-status" class="required form-control">
                                               <option value="Single"><?php echo $this->lang->line('single'); ?></option>
