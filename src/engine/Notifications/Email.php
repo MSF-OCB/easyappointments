@@ -105,7 +105,7 @@ class Email {
             '$company_name' => $company['company_name'],
             '$customer_name' => $customer['first_name'] . ' ' . $customer['last_name'],
             '$customer_email' => $customer['email'],
-            '$customer_phone' => $customer['phone_number'],
+            '$customer_phone' => $customer['phone_number_1'],
             '$customer_address' => $customer['address'],
 
             // Translations

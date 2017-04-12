@@ -23,7 +23,7 @@
     tfoot {
         display: table-header-group;
     }
-    #labtech_filter {
+    #generaltable_filter {
         display: none;
     }
     .dt-buttons {
@@ -52,7 +52,7 @@
     $(document).ready(function() {
         BackendReports.initialize();
 
-        var table = $('#labtech').DataTable( {
+        var table = $('#generaltable').DataTable( {
             "aaData" :  <?php echo json_encode($reports); ?>,
             dom: 'Bfrtip',
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -61,6 +61,7 @@
                 { title: "<?php echo $this->lang->line('category');?>" },
                 { title: "<?php echo $this->lang->line('service');?>" },
                 { title: "<?php echo $this->lang->line('provider');?>" },
+                { title: "<?php echo $this->lang->line('notes');?>" },
                 { title: "<?php echo $this->lang->line('customer');?>" },
                 { title: "<?php echo $this->lang->line('gender');?>" },
                 { title: "<?php echo $this->lang->line('address');?>" },
@@ -74,6 +75,7 @@
                 { "mDataProp": "category_name" },
                 { "mDataProp": "service_name" },
                 { "mDataProp": "provider_name" },
+                { "mDataProp": "notes" },
                 { "mDataProp": "customer_name" },
                 { "mDataProp": "gender" },
                 { "mDataProp": "address" },
@@ -87,7 +89,7 @@
             initComplete: function () {
                 this.api().columns().every( function (i) {
                     var column = this;
-                    if([1,2,8,9,10].indexOf(i) >= 0) {
+                    if([1,2,6,9,10,11].indexOf(i) >= 0) {
                         var select = $('<select class="form-control"><option value=""></option></select>')
                             .appendTo($('#filterTable div')[i])
                             .on('change', function () {
@@ -103,7 +105,19 @@
                         column.data().unique().sort().each(function (d, j) {
                             select.append('<option value="' + d + '">' + d + '</option>')
                         });
-                    } else {
+                    } 
+                    else if([0].indexOf(i) >= 0) {
+                         var select = $('<input class="form-control" type="text">')
+                            .appendTo($('#filterTable div')[i])
+                            .on('keyup change', function () {
+                                var val = $(this).val();
+
+                                column
+                                    .search(val ? '^'+val : '', true, false)
+                                    .draw();
+                            });                       
+                    }
+                    else {
                         var select = $('<input class="form-control" type="text">')
                             .appendTo($('#filterTable div')[i])
                             .on('keyup change', function () {
@@ -134,10 +148,11 @@
 		<div class="col-xs-10 col-xs-offset-1">
             <h5><?php echo $this->lang->line('filters');?></h5>
             <div id="filterTable" class="form form-inline">
-                <div class="form-group"><label><?php echo $this->lang->line('date');?></label></div>
+                <div class="form-group"><label style="width:70px"><?php echo $this->lang->line('start_date');?></label></div>
                 <div class="form-group"><label><?php echo $this->lang->line('category');?></label></div>
                 <div class="form-group"><label><?php echo $this->lang->line('service');?></label></div>
                 <div class="form-group"><label><?php echo $this->lang->line('provider');?></label></div>
+                <div class="form-group"><label><?php echo $this->lang->line('notes');?></label></div>
                 <div class="form-group"><label><?php echo $this->lang->line('customer');?></label></div>
                 <div class="form-group"><label><?php echo $this->lang->line('gender');?></label></div>
                 <div class="form-group"><label><?php echo $this->lang->line('address');?></label></div>
@@ -146,13 +161,14 @@
                 <div class="form-group"><label><?php echo $this->lang->line('language');?></label></div>
                 <div class="form-group"><label><?php echo $this->lang->line('status');?></label></div>
             </div>
-            <table id="labtech" class="table table-condensed table-bordered" cellspacing="0" width="100%">
+            <table id="generaltable" class="table table-condensed table-bordered" cellspacing="0" width="100%">
 				<thead>
 					<tr>
-						<th><?php echo $this->lang->line('date');?></th>
+						<th><?php echo $this->lang->line('start_date');?></th>
 						<th><?php echo $this->lang->line('category');?></th>
 						<th><?php echo $this->lang->line('service');?></th>
 						<th><?php echo $this->lang->line('provider');?></th>
+                                                <th><?php echo $this->lang->line('notes');?></th>
 						<th><?php echo $this->lang->line('customer');?></th>
 						<th><?php echo $this->lang->line('gender');?></th>
 						<th><?php echo $this->lang->line('address');?></th>

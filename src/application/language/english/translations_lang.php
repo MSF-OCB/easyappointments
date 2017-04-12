@@ -301,12 +301,13 @@ $lang['married'] = 'Married';
 $lang['divorced'] = 'Divorced';
 $lang['widowed'] = 'Widowed';
 $lang['non_specified'] = 'Non specified';
-//$lang[''] = '';
-
 $lang['status'] = 'Status';
 $lang['date'] = 'Date';
 $lang['country'] = 'Country';
 $lang['filters'] = 'Filters';
+$lang['start_date'] = 'Date & time';
+$lang['manage_reports_hint'] = 'Get an overview of all the appointments registered in the system';
+$lang['notes'] = 'Notes';
 
 // JUST EXAMPLES! how you can add translation to either Country or Language name, by default it is loaded from the db table.
 // It is important to write it with small letters !
