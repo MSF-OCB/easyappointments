@@ -173,7 +173,7 @@
                                 <option value="TN"><?php echo $countries['TN']; ?></option>
                                 <option value="TR"><?php echo $countries['TR']; ?></option>
                                 <option value="YE"><?php echo $countries['YE']; ?></option>
-                                <option value=""><?php echo $this->lang->line('other'); ?></option>
+                                <option value="XX"><?php echo $this->lang->line('other'); ?></option>
                             </select>
                     </div>
 
