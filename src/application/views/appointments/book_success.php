@@ -44,7 +44,7 @@
                     <?php
                         echo '
                             <h3>' . $this->lang->line('appointment_registered') . '</h3>
-                            <p>' . $this->lang->line('!appointment_details_was_sent_to_you') . '</p>
+                            <p>' . /*$this->lang->line('appointment_details_was_sent_to_you') .*/ '</p>
                             <a href="' . site_url() . '" class="btn btn-success btn-large">
                                 <span class="glyphicon glyphicon-calendar"></span> ' .
                                 $this->lang->line('go_to_booking_page') . '
