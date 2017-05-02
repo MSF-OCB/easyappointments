@@ -317,6 +317,13 @@ class Backend_api extends CI_Controller {
                                 $service, $customer, $company_settings, $customer_title,
                                 $customer_message, $customer_link, new Email($customer['email']));
                     }
+                    //Send sms
+                    if ($customer['phone_number_1'] != "" && $customer['phone_number_1'] > 0) {
+                        $this->load->library('Twilio_SMS');
+                        $sms_text = "Appointment with Dr. " . $provider['last_name'] . ' confirmed for ' .
+                                date('d/m/Y H:i', strtotime($appointment['start_datetime']));
+                        $this->twilio_sms->send_sms($customer['phone_number_1'], $sms_text);
+                    }
                 }
 
                 if ($send_provider == TRUE) {
@@ -422,6 +429,13 @@ class Backend_api extends CI_Controller {
                         $email->sendDeleteAppointment($appointment, $provider,
                                 $service, $customer, $company_settings, new Email($customer['email']),
                                 new Text($_POST['delete_reason']));
+                    }
+                    //Send sms
+                    if ($customer['phone_number_1'] != "" && $customer['phone_number_1'] > 0) {
+                        $this->load->library('Twilio_SMS');
+                        $sms_text = "Appointment with Dr. " . $provider['last_name'] . ' confirmed for ' .
+                                date('d/m/Y H:i', strtotime($appointment['start_datetime']));
+                        $this->twilio_sms->send_sms($customer['phone_number_1'], $sms_text);
                     }
                 }
             } catch(Exception $exc) {

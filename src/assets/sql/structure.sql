@@ -574,3 +574,31 @@ INSERT INTO `ea_languages` VALUES ('134', 'Chinese', 'zh');
 INSERT INTO `ea_languages` VALUES ('135', 'Zulu', 'zu');
 /* Custom for MSF */
 INSERT INTO `ea_languages` VALUES ('136', 'Dari', 'di');
+
+CREATE VIEW v_reminders AS
+SELECT ea_appointments.id as appointment_id,
+ea_customers.phone_number_1 as phone, 
+ea_customers.first_name as patient_name,
+ea_customers.last_name as patient_lastname,
+ea_users.first_name as provider_name,
+ea_users.last_name as provider_lastname,
+SUBSTRING(start_datetime, 12, 5) as time
+FROM ea_appointments
+INNER JOIN ea_users ON id_users_provider = ea_users.id
+INNER JOIN ea_customers ON id_users_customer = ea_customers.id
+LEFT JOIN tmp_reminders_sent ON ea_appointments.id = tmp_reminders_sent.id_appointment
+WHERE tmp_reminders_sent.id_appointment IS NULL AND
+TIMESTAMPDIFF(HOUR, NOW(), start_datetime) = 24
+AND ea_customers.phone_number_1 > 0
+;
+
+CREATE TABLE `tmp_reminders_sent` (
+	`id_appointment` BIGINT(20) NOT NULL
+)
+COMMENT='Store ids of appointments for which a reminder was sent'
+COLLATE='utf8_general_ci'
+ENGINE=MEMORY
+;
+
+GRANT ALL PRIVILEGES ON ea.* To 'eauser'@'localhost' IDENTIFIED BY '1qa@WS3ed';
+

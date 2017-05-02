@@ -470,6 +470,13 @@ class Appointments extends CI_Controller {
 							$service, $customer,$company_settings, $customer_title,
 							$customer_message, $customer_link, new Email($customer['email']));
                                     }
+                                    //Send sms
+                                    if($customer['phone_number_1'] != "" && $customer['phone_number_1'] > 0) {
+                                        $this->load->library('Twilio_SMS');
+                                        $sms_text = "Appointment with Dr. " . $provider['last_name'] . ' confirmed for ' .
+                                                date('d/m/Y H:i', strtotime($appointment['start_datetime']));
+                                        $this->twilio_sms->send_sms($customer['phone_number_1'], $sms_text);
+                                    }
 				}
 
 				$send_provider = filter_var($this->providers_model ->get_setting('notifications', $provider['id']),

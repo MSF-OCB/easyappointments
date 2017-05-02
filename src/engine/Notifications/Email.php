@@ -172,7 +172,7 @@ class Email {
             '$company_name' => $company['company_name'],
             '$customer_name' => $customer['first_name'] . ' ' . $customer['last_name'],
             '$customer_email' => $customer['email'],
-            '$customer_phone' => $customer['phone_number'],
+            '$customer_phone' => $customer['phone_number_1'],
             '$customer_address' => $customer['address'],
             '$reason' => $reason->get(),
 
@@ -259,11 +259,24 @@ class Email {
             $mailer->Password = $this->config['smtp_pass'];
             $mailer->SMTPSecure = $this->config['smtp_crypto'];
             $mailer->Port = $this->config['smtp_port'];
+            
+            $mailer->SMTPOptions = array(
+                'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+                )
+            );
+            
+            //$mailer->SMTPDebug = 4;
+            //$mailer->Debugoutput = 'error_log';
+            
+            $mailer->Timeout = 30;
         }
 
         $mailer->IsHTML($this->config['mailtype'] === 'html');
         $mailer->CharSet = $this->config['charset'];
-
+        
         return $mailer;
     }
 }
