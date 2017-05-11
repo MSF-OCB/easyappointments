@@ -457,7 +457,8 @@
             ?>
         </div>
 
-		<br>
+        <img id="ehealth-logo-icon" class="pull-left" src="<?php echo base_url('assets/img/ehealth-logo.png'); ?>" />
+		<br><br><br><br>
 
         <h3><?php echo $this->lang->line('support'); ?></h3>
         <p>

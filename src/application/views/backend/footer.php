@@ -18,6 +18,9 @@
         <a href="<?php echo site_url('appointments'); ?>">
             <?php echo $this->lang->line('go_to_booking_page') ?>
         </a>
+        <a style="padding-left: 0.5cm; color:red; font-weight:bold;" href="mailto:ehealth-support@brussels.msf.org">
+            <?php echo $this->lang->line('need_support') ?>
+        </a>
     </div>
 
     <div id="footer-user-display-name" class="col-xs-12 col-md-6">

@@ -146,7 +146,8 @@
             |
             <span id="select-language" class="label label-success">
 	        	<?php echo ucfirst($this->config->item('language')); ?>
-	        </span>
+	    </span>
+            <img id="ehealth-logo-icon" class="pull-right" height="56" width="100" src="<?php echo base_url('assets/img/ehealth-logo.png'); ?>" />
         </form>
     </div>
 

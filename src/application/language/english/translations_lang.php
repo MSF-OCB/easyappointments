@@ -308,6 +308,7 @@ $lang['filters'] = 'Filters';
 $lang['start_date'] = 'Date & time';
 $lang['manage_reports_hint'] = 'Get an overview of all the appointments registered in the system';
 $lang['notes'] = 'Notes';
+$lang['need_support'] = 'Need support?';
 
 // JUST EXAMPLES! how you can add translation to either Country or Language name, by default it is loaded from the db table.
 // It is important to write it with small letters !
