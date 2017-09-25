@@ -17,3 +17,4 @@ doc/jsdoc
 doc/plato
 /src/nbproject/private/
 /src/application/config/email.php
+src/application/config/email.php
